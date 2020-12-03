@@ -5,5 +5,5 @@
 - [QSPI_XIP_CTRL_DMC](https://github.com/shalan/QSPI_XIP_CTRL_DMC): Quad I/O SPI XIP Flash Controller w/ prefatch cache IP.
 - [SoCGen](https://github.com/shalan/https://github.com/habibagamal/SoC_Automation): SoC generator.
 - [DFFRAM RegF](https://github.com/shalan/DFFRAM): Hand-crafted Register File optmized for area and power.
-- Clock Management IP
+- Clock Management IP.
 
