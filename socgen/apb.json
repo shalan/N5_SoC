@@ -1,0 +1,105 @@
+{
+    "id": 0,
+    "design": "Raptor_APB_SYS",
+    "license": 1,
+    "version": "1.0",
+    "release_date": {
+        "day": 1,
+        "month": 5,
+        "year": 2020
+    },
+    "bus_type": 1,
+    "subpage_bits":4,
+    "slaves" : [
+        {
+            "type": 11,
+            "description": "UART 1",
+            "cfg":{}
+        },
+
+        {
+            "type": 11,
+            "description": "UART 2",
+            "cfg":{}
+        },
+
+        {
+            "type": 7,
+            "description": "SPI Master 1",
+            "connected_to": 0,
+            "cfg":{}
+        },
+
+        {
+            "type": 7,
+            "description": "SPI Master 2",
+            "connected_to": 0,
+            "cfg":{}
+        },
+        
+        {
+            "type": 6,
+            "description": "I2C Master 1",
+            "connected_to": 0,
+            "cfg":{}
+        },
+
+        {
+            "type": 6,
+            "description": "I2C Master 2",
+            "connected_to": 0,
+            "cfg":{}
+        },
+        
+        
+        {
+            "type": 0,
+            "description": "PWM 1",
+            "connected_to": 0,
+            "cfg":{}
+        },
+
+        {
+            "type": 0,
+            "description": "PWM 2",
+            "connected_to": 0,
+            "cfg":{}
+        },
+
+        {
+            "type": 1,
+            "description": "TIMER 1",
+            "cfg":{}
+        },
+
+        {
+            "type": 1,
+            "description": "TIMER 2",
+            "cfg":{}
+        },
+
+        {
+            "type": 1,
+            "description": "TIMER 3",
+            "cfg":{}
+        },
+
+        {
+            "type": 1,
+            "description": "TIMER 4",
+            "cfg":{}
+        },
+
+        {
+            "type": 12,
+            "description": "Watchdog 1",
+            "cfg":{}
+        },
+
+        {
+            "type": 12,
+            "description": "Watchdog 2",
+            "cfg":{}
+        }
+    ]
+}

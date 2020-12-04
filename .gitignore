@@ -1,0 +1,11 @@
+*.code-workspace
+*.vvp
+*.hex
+*.elf
+*.exe
+*.vcd
+*.log
+*.lst
+*.bin
+/pdk/*
+.DS_Store
