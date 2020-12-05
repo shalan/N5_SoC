@@ -1,11 +1,11 @@
 {
     "id": 0,
-    "design": "Raptor_APB_SYS",
+    "design": "N5_SoC_APB_SYS",
     "license": 1,
     "version": "1.0",
     "release_date": {
         "day": 1,
-        "month": 5,
+        "month": 12,
         "year": 2020
     },
     "bus_type": 1,

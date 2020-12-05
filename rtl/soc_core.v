@@ -183,7 +183,7 @@ module soc_core (
 		.IRQ_SS0_S13(IRQ_Sys0_SS0_S13));
         
 
-	DFFRAM #( parameter COLS=1) soc_sram (
+	DFFRAM #( COLS=1) soc_sram (
 		.CLK(HCLK),
 		.WE(SRAMWEN_Sys0_S1),
 		.EN(SRAMCS0_Sys0_S1),
