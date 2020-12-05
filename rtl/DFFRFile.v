@@ -97,6 +97,7 @@ module RFWORD0 (
     endgenerate 
 endmodule
 
+/*
 module DEC2x4 (
     input           EN,
     input   [1:0]   A,
@@ -123,6 +124,7 @@ module DEC3x8 (
     sky130_fd_sc_hd__and4b_2    AND6 ( .X(SEL[6])  , .A_N(A[0]), .B(A[1]), .C(A[2])  , .D(EN) );   // 110
     sky130_fd_sc_hd__and4_2     AND7 ( .X(SEL[7])  , .A(A[0]), .B(A[1]), .C(A[2])  , .D(EN) ); // 111
 endmodule
+*/
 
 module DEC5x32 (
     input   [4:0]   A,

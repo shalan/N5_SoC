@@ -243,7 +243,7 @@ module apb_sys_0(
                    wire [0: 0] WDEN_S13;
                 
         //Digital module # 0
-        APBUART S0 (
+        APB_UART S0 (
         .PCLK(PCLK),
             .PRESETn(PRESETn),
 			.PSEL(PSEL_S0),
@@ -260,7 +260,7 @@ module apb_sys_0(
         );
         
         //Digital module # 1
-        APBUART S1 (
+        APB_UART S1 (
         .PCLK(PCLK),
             .PRESETn(PRESETn),
 			.PSEL(PSEL_S1),
@@ -277,7 +277,7 @@ module apb_sys_0(
         );
         
         //Digital module # 2
-        APB2SPI S2 (
+        APB_SPI S2 (
         .PCLK(PCLK),
             .PRESETn(PRESETn),
 			.PSEL(PSEL_S2),
@@ -295,7 +295,7 @@ module apb_sys_0(
         );
         
         //Digital module # 3
-        APB2SPI S3 (
+        APB_SPI S3 (
         .PCLK(PCLK),
             .PRESETn(PRESETn),
 			.PSEL(PSEL_S3),
@@ -313,7 +313,7 @@ module apb_sys_0(
         );
         
         //Digital module # 4
-        APB2I2C S4 (
+        APB_I2C S4 (
         .PCLK(PCLK),
             .PRESETn(PRESETn),
 			.PSEL(PSEL_S4),
@@ -333,7 +333,7 @@ module apb_sys_0(
         );
         
         //Digital module # 5
-        APB2I2C S5 (
+        APB_I2C S5 (
         .PCLK(PCLK),
             .PRESETn(PRESETn),
 			.PSEL(PSEL_S5),

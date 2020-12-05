@@ -13,9 +13,10 @@ module AHBlite_sys_0(
 		output HREADY,
 		output [31: 0] HRDATA,
 
-		input [7: 0] Input_DATA,
-		input [0: 0] Input_irq,
-		output Output_DATA,
+		//input [7: 0] Input_DATA,
+		//input [0: 0] Input_irq,
+		//output Output_DATA,
+
 		input wire [3: 0] fdi_S0,
 		output wire [3: 0] fdo_S0,
 		output wire [3: 0] fdoe_S0,
@@ -96,23 +97,24 @@ module AHBlite_sys_0(
 		wire [15: 0] WGPIODIR_S2;
 
         //Digital module # 0
-        QSPIXIP S0 ( 
+        QSPI_XIP_CTRL S0 ( 
             .HCLK(HCLK),
-                .HRESETn(HRESETn),
+            .HRESETn(HRESETn),
 			.HSEL(HSEL_S0),
 			.HADDR(HADDR),
 			.HREADY(HREADY),
 			.HWRITE(HWRITE),
 			.HTRANS(HTRANS),
-			.HSIZE(HSIZE),
+			//.HSIZE(HSIZE),
 			.HRDATA(HRDATA_S0),
 			.HREADYOUT(HREADY_S0),
-			.fdi(fdi_S0),
-			.fdo(fdo_S0),
-			.fdoe(fdoe_S0),
-			.fsclk(fsclk_S0),
-			.fcen(fcen_S0)
+			.din(fdi_S0),
+			.dout(fdo_S0),
+			.douten(fdoe_S0),
+			.sck(fsclk_S0),
+			.ce_n(fcen_S0)
             );
+   
             
         //Digital module # 1
         AHBSRAM S1 ( 

@@ -4,9 +4,11 @@
 module soc_core (
 	input HCLK, 
 	input HRESETn,
-	input [7: 0] Input_DATA,
-	input [0: 0] Input_irq,
-	output Output_DATA,
+	
+	//input [7: 0] Input_DATA,
+	//input [0: 0] Input_irq,
+	//output Output_DATA,
+
 	input wire [3: 0] fdi_Sys0_S0,
 	output wire [3: 0] fdo_Sys0_S0,
 	output wire [3: 0] fdoe_Sys0_S0,
@@ -124,57 +126,81 @@ module soc_core (
     
 		.HREADY(HREADY_Sys0),
 		.HRDATA(HRDATA_Sys0),
-    
-		.Input_DATA(Input_DATA),
-		.Input_irq(Input_irq),
-		.Output_DATA(Output_DATA),
+		
+		//.Input_irq(Input_irq),
+		//.Input_DATA(Input_DATA),
+		//.Output_DATA(Output_DATA),
+		
+		// QSPI Interface
 		.fdi_S0(fdi_Sys0_S0),
 		.fdo_S0(fdo_Sys0_S0),
 		.fdoe_S0(fdoe_Sys0_S0),
 		.fsclk_S0(fsclk_Sys0_S0),
 		.fcen_S0(fcen_Sys0_S0),
+
+		// SRAM Interface
 		.SRAMRDATA_S1(SRAMRDATA_Sys0_S1),
 		.SRAMWEN_S1(SRAMWEN_Sys0_S1),
 		.SRAMWDATA_S1(SRAMWDATA_Sys0_S1),
 		.SRAMCS0_S1(SRAMCS0_Sys0_S1),
-		.SRAMCS1_S1(SRAMCS1_Sys0_S1),
-		.SRAMCS2_S1(SRAMCS2_Sys0_S1),
-		.SRAMCS3_S1(SRAMCS3_Sys0_S1),
+		//.SRAMCS1_S1(SRAMCS1_Sys0_S1),
+		//.SRAMCS2_S1(SRAMCS2_Sys0_S1),
+		//.SRAMCS3_S1(SRAMCS3_Sys0_S1),
 		.SRAMADDR_S1(SRAMADDR_Sys0_S1),
+
+		// GPIO Interface
 		.GPIOIN_S2(GPIOIN_Sys0_S2),
 		.GPIOOUT_S2(GPIOOUT_Sys0_S2),
 		.GPIOPU_S2(GPIOPU_Sys0_S2),
 		.GPIOPD_S2(GPIOPD_Sys0_S2),
 		.GPIOOEN_S2(GPIOOEN_Sys0_S2),
+
 		.db_reg(db_reg_Sys0),
+		
+		// APB Bus
+		// UART 0
 		.RsRx_SS0_S0(RsRx_Sys0_SS0_S0),
 		.RsTx_SS0_S0(RsTx_Sys0_SS0_S0),
 		.uart_irq_SS0_S0(uart_irq_Sys0_SS0_S0),
+		
+		// UART 1
 		.RsRx_SS0_S1(RsRx_Sys0_SS0_S1),
 		.RsTx_SS0_S1(RsTx_Sys0_SS0_S1),
 		.uart_irq_SS0_S1(uart_irq_Sys0_SS0_S1),
+
+		// SPI 0 Interface
 		.MSI_SS0_S2(MSI_Sys0_SS0_S2),
 		.MSO_SS0_S2(MSO_Sys0_SS0_S2),
 		.SSn_SS0_S2(SSn_Sys0_SS0_S2),
 		.SCLK_SS0_S2(SCLK_Sys0_SS0_S2),
+
+		// SPI 1 Interface
 		.MSI_SS0_S3(MSI_Sys0_SS0_S3),
 		.MSO_SS0_S3(MSO_Sys0_SS0_S3),
 		.SSn_SS0_S3(SSn_Sys0_SS0_S3),
 		.SCLK_SS0_S3(SCLK_Sys0_SS0_S3),
+
+		// I2C 0 Interface
 		.scl_i_SS0_S4(scl_i_Sys0_SS0_S4),
 		.scl_o_SS0_S4(scl_o_Sys0_SS0_S4),
 		.scl_oen_o_SS0_S4(scl_oen_o_Sys0_SS0_S4),
 		.sda_i_SS0_S4(sda_i_Sys0_SS0_S4),
 		.sda_o_SS0_S4(sda_o_Sys0_SS0_S4),
 		.sda_oen_o_SS0_S4(sda_oen_o_Sys0_SS0_S4),
+
+		// I2C 1 Interface
 		.scl_i_SS0_S5(scl_i_Sys0_SS0_S5),
 		.scl_o_SS0_S5(scl_o_Sys0_SS0_S5),
 		.scl_oen_o_SS0_S5(scl_oen_o_Sys0_SS0_S5),
 		.sda_i_SS0_S5(sda_i_Sys0_SS0_S5),
 		.sda_o_SS0_S5(sda_o_Sys0_SS0_S5),
 		.sda_oen_o_SS0_S5(sda_oen_o_Sys0_SS0_S5),
+
+		// PMW 0 & 1 Interfaces
 		.pwm_SS0_S6(pwm_Sys0_SS0_S6),
 		.pwm_SS0_S7(pwm_Sys0_SS0_S7),
+
+		// IRQ Lines
 		.IRQ_SS0_S8(IRQ_Sys0_SS0_S8),
 		.IRQ_SS0_S9(IRQ_Sys0_SS0_S9),
 		.IRQ_SS0_S10(IRQ_Sys0_SS0_S10),
@@ -183,7 +209,7 @@ module soc_core (
 		.IRQ_SS0_S13(IRQ_Sys0_SS0_S13));
         
 
-	DFFRAM #( COLS=1) soc_sram (
+	DFFRAM #( .COLS(4) ) soc_sram (
 		.CLK(HCLK),
 		.WE(SRAMWEN_Sys0_S1),
 		.EN(SRAMCS0_Sys0_S1),

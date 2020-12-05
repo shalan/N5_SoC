@@ -107,7 +107,7 @@ module DEC5x32_DMC (
     endgenerate
 
 endmodule
-
+/*
 module MUX4x1_32(
     input   [31:0]      A0, A1, A2, A3,
     input   [1:0]       S,
@@ -115,7 +115,7 @@ module MUX4x1_32(
 );
     sky130_fd_sc_hd__mux4_1 MUX[31:0] (.A0(A0), .A1(A1), .A2(A2), .A3(A3), .S0(S[0]), .S1(S[1]), .X(X) );
 endmodule
-
+*/
 module OVERHEAD(
     input CLK,
     input RSTn,

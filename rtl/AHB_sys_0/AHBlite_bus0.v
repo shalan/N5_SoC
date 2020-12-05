@@ -30,8 +30,8 @@
         input wire          HREADY_SS0,
         input wire  [31:0]  HRDATA_SS0
     );
-        wire [8:0]  PAGE = HADDR[31:24];
-        reg [8:0] APAGE;
+        wire [7:0]  PAGE = HADDR[31:24];
+        reg [7:0] APAGE;
 
         always@ (posedge HCLK or negedge HRESETn) begin
         if(!HRESETn)

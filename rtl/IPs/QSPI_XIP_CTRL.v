@@ -232,7 +232,7 @@ endmodule
     32 lines x 16 bytes Direct Mapped Cache
 */
 `ifdef HC_CACHE
-`include "../rtl/DMC_32x16HC.v"
+`include "../rtl/IPs/DMC_32x16HC.v"
 `else
 module DMC_32x16 (
     input wire          clk,
