@@ -1,5 +1,7 @@
 
 `timescale 1ns/1ns
+
+//`define DBG
 module AHBlite_sys_0(
 		input HCLK,
 		input HRESETn,
@@ -283,10 +285,10 @@ module AHBlite_sys_0(
 		.IRQ_S12(IRQ_SS0_S12),
 		.IRQ_S13(IRQ_SS0_S13)
     );
-    
+`ifdef DBG
     always @(posedge HCLK)
 	if(HTRANS[1] & HREADY)
         $display("Mem request (%d) A:%X", HWRITE, HADDR);
-        
+`endif
     endmodule
         
