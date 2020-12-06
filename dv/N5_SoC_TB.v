@@ -1,8 +1,8 @@
 `timescale 1ns/1ns
 
 `define   TEST_FILE   "../sw/test.hex" 
-`define   SIM_TIME    50_000
-`define   SIM_LEVEL   0
+`define   SIM_TIME    75_000
+`define   SIM_LEVEL   3
 
 module N5_SoC_TB;
 
@@ -21,6 +21,36 @@ module N5_SoC_TB;
     wire [15: 0] GPIOPD_Sys0_S2;
     wire [15: 0] GPIOOEN_Sys0_S2;
     wire [3:0] db_reg_Sys0;
+
+    wire [0: 0] RsRx_Sys0_SS0_S0;
+    wire [0: 0] RsTx_Sys0_SS0_S0;
+    
+    wire [0: 0] RsRx_Sys0_SS0_S1;
+    wire [0: 0] RsTx_Sys0_SS0_S1;
+
+    wire [0: 0] MSI_Sys0_SS0_S2;
+    wire [0: 0] MSO_Sys0_SS0_S2;
+    wire [0: 0] SSn_Sys0_SS0_S2;
+    wire [0: 0] SCLK_Sys0_SS0_S2;
+
+    wire [0: 0] MSI_Sys0_SS0_S3;
+    wire [0: 0] MSO_Sys0_SS0_S3;
+    wire [0: 0] SSn_Sys0_SS0_S3;
+    wire [0: 0] SCLK_Sys0_SS0_S3;
+
+    wire [0: 0] scl_i_Sys0_SS0_S4;
+    wire [0: 0] scl_o_Sys0_SS0_S4;
+    wire [0: 0] scl_oen_o_Sys0_SS0_S4;
+    wire [0: 0] sda_i_Sys0_SS0_S4;
+    wire [0: 0] sda_o_Sys0_SS0_S4;
+    wire [0: 0] sda_oen_o_Sys0_SS0_S4;
+
+    wire [0: 0] scl_i_Sys0_SS0_S5;
+    wire [0: 0] scl_o_Sys0_SS0_S5;
+    wire [0: 0] scl_oen_o_Sys0_SS0_S5;
+    wire [0: 0] sda_i_Sys0_SS0_S5;
+    wire [0: 0] sda_o_Sys0_SS0_S5;
+    wire [0: 0] sda_oen_o_Sys0_SS0_S5;
 
     assign fdio = fdoe ? fdo : 4'bzzzz;
     assign fdi = fdio;
@@ -49,40 +79,42 @@ module N5_SoC_TB;
         .GPIOPU_Sys0_S2(GPIOPU_Sys0_S2),
         .GPIOPD_Sys0_S2(GPIOPD_Sys0_S2),
         .GPIOOEN_Sys0_S2(GPIOOEN_Sys0_S2),
+   		
+        .RsRx_Sys0_SS0_S0(RsRx_Sys0_SS0_S0),
+        .RsTx_Sys0_SS0_S0(RsTx_Sys0_SS0_S0),
+        //output wire [0: 0] uart_irq_Sys0_SS0_S0,
 
-        .db_reg_Sys0(db_reg_Sys0)
+        .RsRx_Sys0_SS0_S1(RsRx_Sys0_SS0_S1),
+        .RsTx_Sys0_SS0_S1(RsTx_Sys0_SS0_S1),
+        //output wire [0: 0] uart_irq_Sys0_SS0_S1,
+      
+        .MSI_Sys0_SS0_S2(MSI_Sys0_SS0_S2),
+        .MSO_Sys0_SS0_S2(MSO_Sys0_SS0_S2),
+        .SSn_Sys0_SS0_S2(SSn_Sys0_SS0_S2),
+        .SCLK_Sys0_SS0_S2(SCLK_Sys0_SS0_S2),
 
-    /*		
-        input wire [0: 0] RsRx_Sys0_SS0_S0,
-        output wire [0: 0] RsTx_Sys0_SS0_S0,
-        output wire [0: 0] uart_irq_Sys0_SS0_S0,
+        .MSI_Sys0_SS0_S3(MSI_Sys0_SS0_S3),
+        .MSO_Sys0_SS0_S3(MSO_Sys0_SS0_S3),
+        .SSn_Sys0_SS0_S3(SSn_Sys0_SS0_S3),
+        .SCLK_Sys0_SS0_S3(SCLK_Sys0_SS0_S3),
 
-        input wire [0: 0] RsRx_Sys0_SS0_S1,
-        output wire [0: 0] RsTx_Sys0_SS0_S1,
-        output wire [0: 0] uart_irq_Sys0_SS0_S1,
-        
-        input wire [0: 0] MSI_Sys0_SS0_S2,
-        output wire [0: 0] MSO_Sys0_SS0_S2,
-        output wire [0: 0] SSn_Sys0_SS0_S2,
-        output wire [0: 0] SCLK_Sys0_SS0_S2,
-        input wire [0: 0] MSI_Sys0_SS0_S3,
-        output wire [0: 0] MSO_Sys0_SS0_S3,
-        output wire [0: 0] SSn_Sys0_SS0_S3,
-        output wire [0: 0] SCLK_Sys0_SS0_S3,
-        input wire [0: 0] scl_i_Sys0_SS0_S4,
-        output wire [0: 0] scl_o_Sys0_SS0_S4,
-        output wire [0: 0] scl_oen_o_Sys0_SS0_S4,
-        input wire [0: 0] sda_i_Sys0_SS0_S4,
-        output wire [0: 0] sda_o_Sys0_SS0_S4,
-        output wire [0: 0] sda_oen_o_Sys0_SS0_S4,
-        input wire [0: 0] scl_i_Sys0_SS0_S5,
-        output wire [0: 0] scl_o_Sys0_SS0_S5,
-        output wire [0: 0] scl_oen_o_Sys0_SS0_S5,
-        input wire [0: 0] sda_i_Sys0_SS0_S5,
-        output wire [0: 0] sda_o_Sys0_SS0_S5,
-        output wire [0: 0] sda_oen_o_Sys0_SS0_S5,
+        .scl_i_Sys0_SS0_S4(scl_i_Sys0_SS0_S4),
+        .scl_o_Sys0_SS0_S4(scl_o_Sys0_SS0_S4),
+        .scl_oen_o_Sys0_SS0_S4(scl_oen_o_Sys0_SS0_S4),
+        .sda_i_Sys0_SS0_S4(sda_i_Sys0_SS0_S4),
+        .sda_o_Sys0_SS0_S4(sda_o_Sys0_SS0_S4),
+        .sda_oen_o_Sys0_SS0_S4(sda_oen_o_Sys0_SS0_S4),
+
+        .scl_i_Sys0_SS0_S5(scl_i_Sys0_SS0_S5),
+        .scl_o_Sys0_SS0_S5(scl_o_Sys0_SS0_S5),
+        .scl_oen_o_Sys0_SS0_S5(scl_oen_o_Sys0_SS0_S5),
+        .sda_i_Sys0_SS0_S5(sda_i_Sys0_SS0_S5),
+        .sda_o_Sys0_SS0_S5(sda_o_Sys0_SS0_S5),
+        .sda_oen_o_Sys0_SS0_S5(sda_oen_o_Sys0_SS0_S5),
+/*
         output wire [0: 0] pwm_Sys0_SS0_S6,
         output wire [0: 0] pwm_Sys0_SS0_S7 */
+        .db_reg_Sys0(db_reg_Sys0)
     );
 
 // Load the application into the flash memory
@@ -125,5 +157,28 @@ module N5_SoC_TB;
     //always @(posedge HCLK)
     //    if(MUV.N5.HTRANS[1] & MUV.N5.HREADY & MUV.N5.HSEL_FLASH)
     //    $display("Flash Read A:%X (%0t)", HADDR, $time);
+
+
+    terminal term(.rx(RsTx_Sys0_SS0_S0));
+endmodule
+
+module terminal #(parameter bit_time = 160) (input rx);
+
+    integer i;
+    reg [7:0] char;
+    initial begin
+        forever begin
+            @(negedge rx);
+            i = 0;
+            char = 0;
+            #(3*bit_time/2);
+            for(i=0; i<8; i=i+1) begin
+                char[i] = rx;
+                #bit_time;
+            end
+            $write("%c", char);
+        end
+    end
+
 
 endmodule
