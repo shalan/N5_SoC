@@ -111,7 +111,7 @@ module APB_UART(
           else if(PADDR[7:0] == `CTRL_ADDR) CTRL <= PWDATA[0:0]; 
           else if(PADDR[7:0] == `TXFIFOTR_ADDR) TXFIFOTR <= PWDATA[7:0];
           else if(PADDR[7:0] == `RXFIFOTR_ADDR) RXFIFOTR <= PWDATA[7:0];
-          $display("write to %d data %d, %d", PADDR[3:0], PWDATA, CTRL);
+          //$display("write to %d data %d, %d", PADDR[3:0], PWDATA, CTRL);
       end
 
 
