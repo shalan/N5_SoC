@@ -11,3 +11,4 @@
 /pdk/*
 .DS_Store
 *.exe
+*.gtkw
