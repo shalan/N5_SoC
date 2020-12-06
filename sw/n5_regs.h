@@ -37,10 +37,10 @@ unsigned int volatile *const PWM1_CMP2 = (unsigned int *)(APB_PWM32_1_BASE_ADDR 
 #define SPI_CFG_REG             0x00000008
 #define SPI_STATUS_REG          0x00000010
 
-unsigned int volatile *const SPI9_CTRL = (unsigned int *)(APB_SPI_0_BASE_ADDR + SPI_CTRL_REG);
-unsigned int volatile *const SPI9_DATA = (unsigned int *)(APB_SPI_0_BASE_ADDR + SPI_DATA_REG);
-unsigned int volatile *const SPI9_STATUS = (unsigned int *)(APB_SPI_0_BASE_ADDR + SPI_STATUS_REG);
-unsigned int volatile *const SPI9_CFG = (unsigned int *)(APB_SPI_0_BASE_ADDR + SPI_CFG_REG);
+unsigned int volatile *const SPI0_CTRL = (unsigned int *)(APB_SPI_0_BASE_ADDR + SPI_CTRL_REG);
+unsigned int volatile *const SPI0_DATA = (unsigned int *)(APB_SPI_0_BASE_ADDR + SPI_DATA_REG);
+unsigned int volatile *const SPI0_STATUS = (unsigned int *)(APB_SPI_0_BASE_ADDR + SPI_STATUS_REG);
+unsigned int volatile *const SPI0_CFG = (unsigned int *)(APB_SPI_0_BASE_ADDR + SPI_CFG_REG);
 
 unsigned int volatile *const SPI1_CTRL = (unsigned int *)(APB_SPI_1_BASE_ADDR + SPI_CTRL_REG);
 unsigned int volatile *const SPI1_DATA = (unsigned int *)(APB_SPI_1_BASE_ADDR + SPI_DATA_REG);

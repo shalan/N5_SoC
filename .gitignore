@@ -7,5 +7,6 @@
 *.log
 *.lst
 *.bin
+*.out
 /pdk/*
 .DS_Store
