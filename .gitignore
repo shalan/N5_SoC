@@ -10,3 +10,4 @@
 *.out
 /pdk/*
 .DS_Store
+*.exe
