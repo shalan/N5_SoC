@@ -53,6 +53,8 @@
 `define		USE_RF_HC
 //`define		USE_ALU_HC
 
+//`define DBG
+
 // Macros used by all modules
 `define     SYNC_BEGIN(r, v)  always @ (posedge HCLK or negedge HRESETn) if(!HRESETn) r <= v; else begin
 `define     SYNC_END          end
@@ -816,7 +818,9 @@ module NfiVe32_RF (
 		if(WR)
 			if(RW!=5'd0) begin 
 				RF[RW] <= DW;
+				`ifdef DBG
 				#1 $display("Write: RF[%d]=0x%X []", RW, RF[RW]);
+				`endif
 			end
 endmodule
 
@@ -951,12 +955,14 @@ module NfiVe32 (
 		.DB(r2)
 	);
 `endif
+`ifdef DBG
 	always @(posedge HCLK)
 		if(rd != 5'd0)
 			if(rf_wr & C3) begin
                 $display("RF[%02d]=%X (%d)", rd, rf_dw, rf_dw);
 				if(rd == 10) $display("<===");
             end
+`endif
 `else
 	reg [31:0] RF[31:0];
     assign r1 = RF[rs1] & {32{~(rs1==5'd0)}};
@@ -965,7 +971,9 @@ module NfiVe32 (
 		if(rd != 5'd0)
 			if(rf_wr & C3) begin
                 RF[rd] <=   rf_dw;
+				`ifdef DBG
                 #1 $display("Write: RF[%d]=0x%X [PC=0x%X, INSTR=0x%X]", rd, RF[rd], PC, INSTR);
+				`endif
             end
 `endif
 
