@@ -15,10 +15,6 @@ module AHBlite_sys_0(
 		output HREADY,
 		output [31: 0] HRDATA,
 
-		//input [7: 0] Input_DATA,
-		//input [0: 0] Input_irq,
-		//output Output_DATA,
-
 		input wire [3: 0] fdi_S0,
 		output wire [3: 0] fdo_S0,
 		output wire [0: 0] fdoe_S0,
@@ -66,26 +62,14 @@ module AHBlite_sys_0(
 		output wire [0: 0] sda_oen_o_SS0_S5,
 		output wire [0: 0] pwm_SS0_S6,
 		output wire [0: 0] pwm_SS0_S7,
-		/*
-		output IRQ_SS0_S8,
-		output IRQ_SS0_S9,
-		output IRQ_SS0_S10,
-		output IRQ_SS0_S11,
-		output IRQ_SS0_S12,
-		output IRQ_SS0_S13
-		*/
+
 		output wire [31:0] IRQ
 	);
         
 		assign IRQ[15:0] = 0;
-		
+
         //Inputs
         wire HSEL_S0, HSEL_S1, HSEL_S2, HSEL_S3, HSEL_SS0;
-        //wire [31: 0] HADDR;
-        //wire HWRITE;
-        //wire [1: 0] HTRANS;
-        //wire [1: 0] HSIZE;
-        //wire [31: 0] HWDATA;
 
         //Outputs
         wire    [31:0]   HRDATA_S0, HRDATA_S1, HRDATA_S2, HRDATA_S3, HRDATA_SS0, HRDATA;
@@ -94,13 +78,9 @@ module AHBlite_sys_0(
        // wire          IRQ;
         
 		wire [15: 0] WGPIODIN_S2;
-
 		wire [15: 0] WGPIODOUT_S2;
-
 		wire [15: 0] WGPIOPU_S2;
-
 		wire [15: 0] WGPIOPD_S2;
-
 		wire [15: 0] WGPIODIR_S2;
 
         //Digital module # 0
@@ -120,13 +100,13 @@ module AHBlite_sys_0(
 			.douten(fdoe_S0),
 			.sck(fsclk_S0),
 			.ce_n(fcen_S0)
-            );
+        );
    
             
         //Digital module # 1
         AHBSRAM S1 ( 
             .HCLK(HCLK),
-                .HRESETn(HRESETn),
+            .HRESETn(HRESETn),
 			.HSEL(HSEL_S1),
 			.HADDR(HADDR),
 			.HREADY(HREADY),
@@ -144,7 +124,7 @@ module AHBlite_sys_0(
 			.SRAMCS2(SRAMCS2_S1),
 			.SRAMCS3(SRAMCS3_S1),
 			.SRAMADDR(SRAMADDR_S1)
-            );
+        );
             
         //Digital module # 2
         GPIO S2 ( 
@@ -158,47 +138,47 @@ module AHBlite_sys_0(
 			.GPIOPU(GPIOPU_S2),
 			.GPIOPD(GPIOPD_S2),
 			.GPIOOEN(GPIOOEN_S2)
-            );
+        );
             
             //AHB Slave # 2
-            AHBlite_GPIO S_2 (
-                .HCLK(HCLK),
-                .HRESETn(HRESETn),
-                .HSEL(HSEL_S2),
-                .HADDR(HADDR[23:2]),
-                .HREADY(HREADY),
-                .HWRITE(HWRITE),
-                .HTRANS(HTRANS),
-                .HSIZE(HSIZE),
-                .HWDATA(HWDATA),
-    
-                
+		AHBlite_GPIO S_2 (
+			.HCLK(HCLK),
+			.HRESETn(HRESETn),
+			.HSEL(HSEL_S2),
+			.HADDR(HADDR[23:2]),
+			.HREADY(HREADY),
+			.HWRITE(HWRITE),
+			.HTRANS(HTRANS),
+			.HSIZE(HSIZE),
+			.HWDATA(HWDATA),
+
 			.WGPIODIN(WGPIODIN_S2),
 			.WGPIODOUT(WGPIODOUT_S2),
 			.WGPIOPU(WGPIOPU_S2),
 			.WGPIOPD(WGPIOPD_S2),
 			.WGPIODIR(WGPIODIR_S2),
-                .HRDATA(HRDATA_S2),
-                .HREADYOUT(HREADY_S2),
-                .HRESP(HRESP)
-            );
+			.HRDATA(HRDATA_S2),
+			.HREADYOUT(HREADY_S2),
+			.HRESP(HRESP)
+		);
                 
-            //AHB Slave # 3
-            AHBlite_db_reg S_3 (
-                .HCLK(HCLK),
-                .HRESETn(HRESETn),
-                .HSEL(HSEL_S3),
-                .HADDR(HADDR[23:2]),
-                .HREADY(HREADY),
-                .HWRITE(HWRITE),
-                .HTRANS(HTRANS),
-                .HSIZE(HSIZE),
-                .HWDATA(HWDATA),
-                .db_reg(db_reg),
+		//AHB Slave # 3
+		AHBlite_db_reg S_3 (
+			.HCLK(HCLK),
+			.HRESETn(HRESETn),
+			.HSEL(HSEL_S3),
+			.HADDR(HADDR[23:2]),
+			.HREADY(HREADY),
+			.HWRITE(HWRITE),
+			.HTRANS(HTRANS),
+			.HSIZE(HSIZE),
+			.HWDATA(HWDATA),
+			.db_reg(db_reg),
 
-                .HRDATA(HRDATA_S3),
-                .HREADYOUT(HREADY_S3),
-                .HRESP(HRESP));
+			.HRDATA(HRDATA_S3),
+			.HREADYOUT(HREADY_S3),
+			.HRESP(HRESP)
+		);
                 
         
         //AHB Bus
@@ -240,11 +220,11 @@ module AHBlite_sys_0(
     
     //SubSystem Instantiation #0 
     apb_sys_0 apb_sys_inst_0(
-        // Global signals --------------------------------------------------------------
+        // Global signals 
         .HCLK(HCLK),
         .HRESETn(HRESETn),
     
-        // AHB Slave inputs ------------------------------------------------------------
+        // AHB Slave inputs 
         .HADDR(HADDR),
         .HTRANS(HTRANS),
         .HWRITE(HWRITE),
@@ -252,45 +232,42 @@ module AHBlite_sys_0(
         .HSEL(HSEL_SS0),
         .HREADY(HREADY),
     
-        // AHB Slave outputs -----------------------------------------------------------
+        // AHB Slave outputs 
         .HRDATA(HRDATA_SS0),
         .HREADYOUT(HREADY_SS0),
 		.RsRx_S0(RsRx_SS0_S0),
 		.RsTx_S0(RsTx_SS0_S0),
-		//.uart_irq_S0(uart_irq_SS0_S0),
+
 		.RsRx_S1(RsRx_SS0_S1),
 		.RsTx_S1(RsTx_SS0_S1),
-		//.uart_irq_S1(uart_irq_SS0_S1),
+
 		.MSI_S2(MSI_SS0_S2),
 		.MSO_S2(MSO_SS0_S2),
 		.SSn_S2(SSn_SS0_S2),
 		.SCLK_S2(SCLK_SS0_S2),
+
 		.MSI_S3(MSI_SS0_S3),
 		.MSO_S3(MSO_SS0_S3),
 		.SSn_S3(SSn_SS0_S3),
 		.SCLK_S3(SCLK_SS0_S3),
+
 		.scl_i_S4(scl_i_SS0_S4),
 		.scl_o_S4(scl_o_SS0_S4),
 		.scl_oen_o_S4(scl_oen_o_SS0_S4),
 		.sda_i_S4(sda_i_SS0_S4),
 		.sda_o_S4(sda_o_SS0_S4),
 		.sda_oen_o_S4(sda_oen_o_SS0_S4),
+
 		.scl_i_S5(scl_i_SS0_S5),
 		.scl_o_S5(scl_o_SS0_S5),
 		.scl_oen_o_S5(scl_oen_o_SS0_S5),
 		.sda_i_S5(sda_i_SS0_S5),
 		.sda_o_S5(sda_o_SS0_S5),
 		.sda_oen_o_S5(sda_oen_o_SS0_S5),
+
 		.pwm_S6(pwm_SS0_S6),
 		.pwm_S7(pwm_SS0_S7),
-		/*
-		.IRQ_S8(IRQ_SS0_S8),
-		.IRQ_S9(IRQ_SS0_S9),
-		.IRQ_S10(IRQ_SS0_S10),
-		.IRQ_S11(IRQ_SS0_S11),
-		.IRQ_S12(IRQ_SS0_S12),
-		.IRQ_S13(IRQ_SS0_S13)
-		*/
+
 		.IRQ(IRQ[31:16])
     );
 `ifdef DBG
