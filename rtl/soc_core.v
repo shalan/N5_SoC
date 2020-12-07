@@ -11,7 +11,7 @@ module soc_core (
 
 	input wire [3: 0] fdi_Sys0_S0,
 	output wire [3: 0] fdo_Sys0_S0,
-	output wire [3: 0] fdoe_Sys0_S0,
+	output wire [0: 0] fdoe_Sys0_S0,
 	output wire [0: 0] fsclk_Sys0_S0,
 	output wire [0: 0] fcen_Sys0_S0,
 	input wire [15: 0] GPIOIN_Sys0_S2,
@@ -63,13 +63,14 @@ module soc_core (
 
 	wire HREADY_Sys0;
 	wire [31: 0] HRDATA_Sys0;
-
+/*
 	wire IRQ_Sys0_SS0_S8;
 	wire IRQ_Sys0_SS0_S9;
 	wire IRQ_Sys0_SS0_S10;
 	wire IRQ_Sys0_SS0_S11;
 	wire IRQ_Sys0_SS0_S12;
 	wire IRQ_Sys0_SS0_S13;
+*/
 	wire [31: 0] SRAMRDATA_Sys0_S1;
 	wire [3: 0] SRAMWEN_Sys0_S1;
 	wire [31: 0] SRAMWDATA_Sys0_S1;
@@ -86,7 +87,8 @@ module soc_core (
 	wire [2:0] M2_HSIZE;
 	wire [31:0] M2_HWDATA;
 	wire [31:0] M2_HRDATA;
-	wire [0: 0] M2_IRQ;
+	
+	wire [31: 0] M2_IRQ;
 
 	wire [3:0] M2_HPROT;
 	wire [2:0] M2_HBURST;
@@ -105,7 +107,7 @@ module soc_core (
 	assign M2_HBUSREQ = 1'b1;
 
 
-	assign M2_IRQ = 1'b0;
+	//assign M2_IRQ = 1'b0;
 
   
 
@@ -200,13 +202,17 @@ module soc_core (
 		.pwm_SS0_S6(pwm_Sys0_SS0_S6),
 		.pwm_SS0_S7(pwm_Sys0_SS0_S7),
 
+		.IRQ(M2_IRQ)
+/*
 		// IRQ Lines
 		.IRQ_SS0_S8(IRQ_Sys0_SS0_S8),
 		.IRQ_SS0_S9(IRQ_Sys0_SS0_S9),
 		.IRQ_SS0_S10(IRQ_Sys0_SS0_S10),
 		.IRQ_SS0_S11(IRQ_Sys0_SS0_S11),
 		.IRQ_SS0_S12(IRQ_Sys0_SS0_S12),
-		.IRQ_SS0_S13(IRQ_Sys0_SS0_S13));
+		.IRQ_SS0_S13(IRQ_Sys0_SS0_S13)
+		*/
+		);
         
 
 	DFFRAM #( .COLS(4) ) soc_sram (
@@ -219,9 +225,11 @@ module soc_core (
 	);    
 	
 	// Instantiation of NfiVe32
-	NfiVe32 N5(
+	//NfiVe32 N5(
+	NfiVe32_SYS CPU (
 		.HCLK(HCLK),
 		.HRESETn(HRESETn),
+
 		.HADDR(M2_HADDR),
 		.HREADY(M2_HREADY),
 		.HWRITE(M2_HWRITE),
@@ -230,16 +238,14 @@ module soc_core (
 		.HWDATA(M2_HWDATA),
 		.HRDATA(M2_HRDATA),
 
-		//Interrupts
-		.NMI(0),
+		//NMI
+		.NMI(1'b0),
 
 		//Interrupts
-
 		.IRQ(M2_IRQ),
 
-		//Ports
-		.IRQ_NUM(0),
-		.SYSTICKCLK(0));
- 
+		// SYSTICK Divisor
+		.SYSTICKCLKDIV(8'd100)
+	);
   endmodule
   
