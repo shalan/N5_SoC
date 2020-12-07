@@ -15,7 +15,7 @@ module QSPI_XIP_CTRL(
     input               HSEL,
     input wire [31:0]   HADDR,
     input wire [1:0]    HTRANS,
-    input wire [31:0]   HWDATA,
+    //input wire [31:0]   HWDATA,
     input wire          HWRITE,
     input wire          HREADY,
     output reg          HREADYOUT,
