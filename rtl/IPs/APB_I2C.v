@@ -25,6 +25,8 @@ module APB_I2C(
     output wire PREADY,
     output wire [31:0] PRDATA,
 
+	output wire IRQ,
+
     // i2c Ports
     input 	wire scl_i,	    // SCL-line input
 	output 	wire scl_o,	    // SCL-line output (always 1'b0)
@@ -42,7 +44,23 @@ module APB_I2C(
   wire io_re = PENABLE & ~PWRITE & PREADY & PSEL;
 
   wire i2c_irq;
-  
+
+  reg I2C_IM_REG;
+
+  assign IRQ = i2c_irq & I2C_IM_REG;
+
+  // IM Register -- Size: 1 -- Offset: 0x14
+  always @(posedge PCLK, negedge PRESETn)
+  begin
+    if(!PRESETn)
+    begin
+      I2C_IM_REG <= 1'b0;
+    end
+    else if(PENABLE & PWRITE & PREADY & PSEL & PADDR[2] & ~PADDR[3] & PADDR[4])
+      I2C_IM_REG <= PWDATA[0:0];
+  end
+
+
   i2c_master i2c (
     		.sys_clk(PCLK),
     		.sys_rst(~PRESETn),
