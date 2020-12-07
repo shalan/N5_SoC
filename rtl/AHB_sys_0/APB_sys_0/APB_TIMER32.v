@@ -10,7 +10,7 @@ module APB_TIMER32 (
 	// APB Interface
 	// clock and reset 
 	input  wire        PCLK,    
-	input  wire        PCLKG,   // Gated clock
+	//input  wire        PCLKG,   // Gated clock
 	input  wire        PRESETn, // Reset
 
 	// input ports
