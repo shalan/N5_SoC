@@ -19,27 +19,18 @@
     output wire [31:0] HRDATA,  // Read data
     output wire        HREADYOUT,  // Device ready
     output wire [1:0]   HRESP,
-		// IP Interface
+	
+    // IP Interface
 	// WGPIODIN register/fields
 	input [15:0] WGPIODIN,
-
-
 	// WGPIODOUT register/fields
 	output [15:0] WGPIODOUT,
-
-
 	// WGPIOPU register/fields
 	output [15:0] WGPIOPU,
-
-
 	// WGPIOPD register/fields
 	output [15:0] WGPIOPD,
-
-
 	// WGPIODIR register/fields
 	output [15:0] WGPIODIR
-
-
 );
     reg         IOSEL;
     reg [23:0]  IOADDR;
@@ -60,7 +51,7 @@
         if (~HRESETn)
             IOADDR <= 24'd0;
         else
-            IOADDR <= HADDR[23:0];
+            IOADDR <= {HADDR[23:2], 2'b0};
     end
 
     // Data phase write control
@@ -96,17 +87,13 @@
     
 
     reg [15:0] WGPIODOUT;
-
     reg [15:0] WGPIOPU;
-
     reg [15:0] WGPIOPD;
-
     reg [15:0] WGPIODIR;
-
     wire[15:0] WGPIODIN;
 
 	// Register: WGPIODOUT
-    wire WGPIODOUT_select = wr_enable & (IOADDR[23:2] == 20'h1);
+    wire WGPIODOUT_select = wr_enable & (IOADDR[23:2] == 22'h1);
     
     always @(posedge HCLK or negedge HRESETn)
     begin
@@ -117,7 +104,7 @@
     end
     
 	// Register: WGPIOPU
-    wire WGPIOPU_select = wr_enable & (IOADDR[23:2] == 20'h2);
+    wire WGPIOPU_select = wr_enable & (IOADDR[23:2] == 22'h2);
     
     always @(posedge HCLK or negedge HRESETn)
     begin
@@ -128,7 +115,7 @@
     end
     
 	// Register: WGPIOPD
-    wire WGPIOPD_select = wr_enable & (IOADDR[23:2] == 20'h3);
+    wire WGPIOPD_select = wr_enable & (IOADDR[23:2] == 22'h3);
     
     always @(posedge HCLK or negedge HRESETn)
     begin
@@ -139,7 +126,7 @@
     end
     
 	// Register: WGPIODIR
-    wire WGPIODIR_select = wr_enable & (IOADDR[23:2] == 20'h4);
+    wire WGPIODIR_select = wr_enable & (IOADDR[23:2] == 22'h4);
     
     always @(posedge HCLK or negedge HRESETn)
     begin
