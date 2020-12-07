@@ -21,7 +21,7 @@ module AHBlite_sys_0(
 
 		input wire [3: 0] fdi_S0,
 		output wire [3: 0] fdo_S0,
-		output wire [3: 0] fdoe_S0,
+		output wire [0: 0] fdoe_S0,
 		output wire [0: 0] fsclk_S0,
 		output wire [0: 0] fcen_S0,
 		input wire [31: 0] SRAMRDATA_S1,
@@ -66,14 +66,19 @@ module AHBlite_sys_0(
 		output wire [0: 0] sda_oen_o_SS0_S5,
 		output wire [0: 0] pwm_SS0_S6,
 		output wire [0: 0] pwm_SS0_S7,
+		/*
 		output IRQ_SS0_S8,
 		output IRQ_SS0_S9,
 		output IRQ_SS0_S10,
 		output IRQ_SS0_S11,
 		output IRQ_SS0_S12,
 		output IRQ_SS0_S13
+		*/
+		output wire [31:0] IRQ
 	);
         
+		assign IRQ[15:0] = 0;
+		
         //Inputs
         wire HSEL_S0, HSEL_S1, HSEL_S2, HSEL_S3, HSEL_SS0;
         //wire [31: 0] HADDR;
@@ -86,7 +91,7 @@ module AHBlite_sys_0(
         wire    [31:0]   HRDATA_S0, HRDATA_S1, HRDATA_S2, HRDATA_S3, HRDATA_SS0, HRDATA;
         wire             HREADY_S0, HREADY_S1, HREADY_S2, HREADY_S3, HREADY_SS0, HREADY;
         wire  [1:0]   HRESP;
-        wire          IRQ;
+       // wire          IRQ;
         
 		wire [15: 0] WGPIODIN_S2;
 
@@ -252,10 +257,10 @@ module AHBlite_sys_0(
         .HREADYOUT(HREADY_SS0),
 		.RsRx_S0(RsRx_SS0_S0),
 		.RsTx_S0(RsTx_SS0_S0),
-		.uart_irq_S0(uart_irq_SS0_S0),
+		//.uart_irq_S0(uart_irq_SS0_S0),
 		.RsRx_S1(RsRx_SS0_S1),
 		.RsTx_S1(RsTx_SS0_S1),
-		.uart_irq_S1(uart_irq_SS0_S1),
+		//.uart_irq_S1(uart_irq_SS0_S1),
 		.MSI_S2(MSI_SS0_S2),
 		.MSO_S2(MSO_SS0_S2),
 		.SSn_S2(SSn_SS0_S2),
@@ -278,12 +283,15 @@ module AHBlite_sys_0(
 		.sda_oen_o_S5(sda_oen_o_SS0_S5),
 		.pwm_S6(pwm_SS0_S6),
 		.pwm_S7(pwm_SS0_S7),
+		/*
 		.IRQ_S8(IRQ_SS0_S8),
 		.IRQ_S9(IRQ_SS0_S9),
 		.IRQ_S10(IRQ_SS0_S10),
 		.IRQ_S11(IRQ_SS0_S11),
 		.IRQ_S12(IRQ_SS0_S12),
 		.IRQ_S13(IRQ_SS0_S13)
+		*/
+		.IRQ(IRQ[31:16])
     );
 `ifdef DBG
     always @(posedge HCLK)

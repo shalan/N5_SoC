@@ -18,10 +18,10 @@ module apb_sys_0(
     output wire         HREADYOUT,
 	input wire [0: 0] RsRx_S0,
 	output wire [0: 0] RsTx_S0,
-	output wire [0: 0] uart_irq_S0,
+	//output wire [0: 0] uart_irq_S0,
 	input wire [0: 0] RsRx_S1,
 	output wire [0: 0] RsTx_S1,
-	output wire [0: 0] uart_irq_S1,
+	//output wire [0: 0] uart_irq_S1,
 	input wire [0: 0] MSI_S2,
 	output wire [0: 0] MSO_S2,
 	output wire [0: 0] SSn_S2,
@@ -45,6 +45,7 @@ module apb_sys_0(
 	output wire [0: 0] pwm_S6,
 	output wire [0: 0] pwm_S7,
 
+/*
 	output IRQ_S8,
 
 	output IRQ_S9,
@@ -56,6 +57,7 @@ module apb_sys_0(
 	output IRQ_S12,
 
 	output IRQ_S13
+*/  output [31:16] IRQ
     );
     
     // APB Master Signals
@@ -254,9 +256,9 @@ module apb_sys_0(
 			.PRDATA(PRDATA_S0),
 			.PENABLE(PENABLE),
            
-                .RsRx(RsRx_S0),   
-                .RsTx(RsTx_S0),   
-                .uart_irq(uart_irq_S0)
+            .RsRx(RsRx_S0),   
+            .RsTx(RsTx_S0),   
+            .uart_irq(IRQ[16])
         );
         
         //Digital module # 1
@@ -271,9 +273,9 @@ module apb_sys_0(
 			.PRDATA(PRDATA_S1),
 			.PENABLE(PENABLE),
            
-                .RsRx(RsRx_S1),   
-                .RsTx(RsTx_S1),   
-                .uart_irq(uart_irq_S1)
+            .RsRx(RsRx_S1),   
+            .RsTx(RsTx_S1),   
+            .uart_irq(IRQ[17])
         );
         
         //Digital module # 2
@@ -288,10 +290,12 @@ module apb_sys_0(
 			.PRDATA(PRDATA_S2),
 			.PENABLE(PENABLE),
            
-                .MSI(MSI_S2),   
-                .MSO(MSO_S2),   
-                .SSn(SSn_S2),   
-                .SCLK(SCLK_S2)
+            .MSI(MSI_S2),   
+            .MSO(MSO_S2),   
+            .SSn(SSn_S2),   
+            .SCLK(SCLK_S2),
+
+            .IRQ(IRQ[18])
         );
         
         //Digital module # 3
@@ -305,11 +309,13 @@ module apb_sys_0(
 			.PWDATA(PWDATA),
 			.PRDATA(PRDATA_S3),
 			.PENABLE(PENABLE),
-           
-                .MSI(MSI_S3),   
-                .MSO(MSO_S3),   
-                .SSn(SSn_S3),   
-                .SCLK(SCLK_S3)
+        
+            .MSI(MSI_S3),   
+            .MSO(MSO_S3),   
+            .SSn(SSn_S3),   
+            .SCLK(SCLK_S3),
+
+            .IRQ(IRQ[19])
         );
         
         //Digital module # 4
@@ -323,13 +329,15 @@ module apb_sys_0(
 			.PWDATA(PWDATA),
 			.PRDATA(PRDATA_S4),
 			.PENABLE(PENABLE),
-           
-                .scl_i(scl_i_S4),   
-                .scl_o(scl_o_S4),   
-                .scl_oen_o(scl_oen_o_S4),   
-                .sda_i(sda_i_S4),   
-                .sda_o(sda_o_S4),   
-                .sda_oen_o(sda_oen_o_S4)
+        
+            .scl_i(scl_i_S4),   
+            .scl_o(scl_o_S4),   
+            .scl_oen_o(scl_oen_o_S4),   
+            .sda_i(sda_i_S4),   
+            .sda_o(sda_o_S4),   
+            .sda_oen_o(sda_oen_o_S4),
+
+            .IRQ(IRQ[20])
         );
         
         //Digital module # 5
@@ -344,12 +352,14 @@ module apb_sys_0(
 			.PRDATA(PRDATA_S5),
 			.PENABLE(PENABLE),
            
-                .scl_i(scl_i_S5),   
-                .scl_o(scl_o_S5),   
-                .scl_oen_o(scl_oen_o_S5),   
-                .sda_i(sda_i_S5),   
-                .sda_o(sda_o_S5),   
-                .sda_oen_o(sda_oen_o_S5)
+            .scl_i(scl_i_S5),   
+            .scl_o(scl_o_S5),   
+            .scl_oen_o(scl_oen_o_S5),   
+            .sda_i(sda_i_S5),   
+            .sda_o(sda_o_S5),   
+            .sda_oen_o(sda_oen_o_S5),
+
+            .IRQ(IRQ[21])
         );
         
         //Digital module # 6
@@ -412,16 +422,11 @@ module apb_sys_0(
         .PENABLE(PENABLE),
         .PWDATA(PWDATA),
 
-        
-			.PRE(PRE_S7),
-
-			.TMRCMP1(TMRCMP1_S7),
-
-			.TMRCMP2(TMRCMP2_S7),
-
-			.TMREN(TMREN_S7),
-
-			.PRDATA(PRDATA_S7)
+        .PRE(PRE_S7),
+        .TMRCMP1(TMRCMP1_S7),
+        .TMRCMP2(TMRCMP2_S7),
+        .TMREN(TMREN_S7),
+        .PRDATA(PRDATA_S7)
 		);
             
         //Digital module # 8
@@ -462,7 +467,7 @@ module apb_sys_0(
 
 			.TMREN(TMREN_S8),
 
-			.IRQ(IRQ_S8),
+			.IRQ(IRQ[22]),
 			.PRDATA(PRDATA_S8)
 		);
             
@@ -504,7 +509,7 @@ module apb_sys_0(
 
 			.TMREN(TMREN_S9),
 
-			.IRQ(IRQ_S9),
+			.IRQ(IRQ[23]),
 			.PRDATA(PRDATA_S9)
 		);
             
@@ -546,7 +551,7 @@ module apb_sys_0(
 
 			.TMREN(TMREN_S10),
 
-			.IRQ(IRQ_S10),
+			.IRQ(IRQ[24]),
 			.PRDATA(PRDATA_S10)
 		);
             
@@ -588,7 +593,7 @@ module apb_sys_0(
 
 			.TMREN(TMREN_S11),
 
-			.IRQ(IRQ_S11),
+			.IRQ(IRQ[25]),
 			.PRDATA(PRDATA_S11)
 		);
             
@@ -627,7 +632,7 @@ module apb_sys_0(
 
 			.WDEN(WDEN_S12),
 
-			.IRQ(IRQ_S12),
+			.IRQ(IRQ[26]),
 			.PRDATA(PRDATA_S12)
 		);
             
@@ -666,7 +671,7 @@ module apb_sys_0(
 
 			.WDEN(WDEN_S13),
 
-			.IRQ(IRQ_S13),
+			.IRQ(IRQ[27]),
 			.PRDATA(PRDATA_S13)
 		);
             
