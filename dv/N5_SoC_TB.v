@@ -147,7 +147,7 @@ module N5_SoC_TB;
     // Terminate the smulation with ebreak instruction.
     // Calculate the CPI using the CSRs
     always @ (posedge HCLK) 
-        if(MUV.N5.instr_ebreak) begin
+        if(MUV.CPU.N5.instr_ebreak) begin
         //$display("CPI=%d.%0d", MUV.N5.CSR_CYCLE/MUV.N5.CSR_INSTRET,(MUV.N5.CSR_CYCLE%MUV.N5.CSR_INSTRET)*10/MUV.N5.CSR_INSTRET );
         $finish;
         end
