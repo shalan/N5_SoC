@@ -14,19 +14,21 @@ module soc_core (
 	output wire [0: 0] fdoe_Sys0_S0,
 	output wire [0: 0] fsclk_Sys0_S0,
 	output wire [0: 0] fcen_Sys0_S0,
+
 	input wire [15: 0] GPIOIN_Sys0_S2,
 	output wire [15: 0] GPIOOUT_Sys0_S2,
 	output wire [15: 0] GPIOPU_Sys0_S2,
 	output wire [15: 0] GPIOPD_Sys0_S2,
 	output wire [15: 0] GPIOOEN_Sys0_S2,
-	output [3:0] db_reg_Sys0,
+	
+	//output [3:0] db_reg_Sys0,
 		
 	input wire [0: 0] RsRx_Sys0_SS0_S0,
 	output wire [0: 0] RsTx_Sys0_SS0_S0,
-	output wire [0: 0] uart_irq_Sys0_SS0_S0,
+	//output wire [0: 0] uart_irq_Sys0_SS0_S0,
 	input wire [0: 0] RsRx_Sys0_SS0_S1,
 	output wire [0: 0] RsTx_Sys0_SS0_S1,
-	output wire [0: 0] uart_irq_Sys0_SS0_S1,
+	//output wire [0: 0] uart_irq_Sys0_SS0_S1,
 	input wire [0: 0] MSI_Sys0_SS0_S2,
 	output wire [0: 0] MSO_Sys0_SS0_S2,
 	output wire [0: 0] SSn_Sys0_SS0_S2,
@@ -157,18 +159,18 @@ module soc_core (
 		.GPIOPD_S2(GPIOPD_Sys0_S2),
 		.GPIOOEN_S2(GPIOOEN_Sys0_S2),
 
-		.db_reg(db_reg_Sys0),
+		//.db_reg(db_reg_Sys0),
 		
 		// APB Bus
 		// UART 0
 		.RsRx_SS0_S0(RsRx_Sys0_SS0_S0),
 		.RsTx_SS0_S0(RsTx_Sys0_SS0_S0),
-		.uart_irq_SS0_S0(uart_irq_Sys0_SS0_S0),
+		//.uart_irq_SS0_S0(uart_irq_Sys0_SS0_S0),
 		
 		// UART 1
 		.RsRx_SS0_S1(RsRx_Sys0_SS0_S1),
 		.RsTx_SS0_S1(RsTx_Sys0_SS0_S1),
-		.uart_irq_SS0_S1(uart_irq_Sys0_SS0_S1),
+		//.uart_irq_SS0_S1(uart_irq_Sys0_SS0_S1),
 
 		// SPI 0 Interface
 		.MSI_SS0_S2(MSI_Sys0_SS0_S2),

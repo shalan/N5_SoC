@@ -110,11 +110,11 @@ module N5_SoC_TB;
         .scl_oen_o_Sys0_SS0_S5(scl_oen_o_Sys0_SS0_S5),
         .sda_i_Sys0_SS0_S5(sda_i_Sys0_SS0_S5),
         .sda_o_Sys0_SS0_S5(sda_o_Sys0_SS0_S5),
-        .sda_oen_o_Sys0_SS0_S5(sda_oen_o_Sys0_SS0_S5),
+        .sda_oen_o_Sys0_SS0_S5(sda_oen_o_Sys0_SS0_S5)
 /*
         output wire [0: 0] pwm_Sys0_SS0_S6,
         output wire [0: 0] pwm_Sys0_SS0_S7 */
-        .db_reg_Sys0(db_reg_Sys0)
+        //.db_reg_Sys0(db_reg_Sys0)
     );
 
 // Load the application into the flash memory
