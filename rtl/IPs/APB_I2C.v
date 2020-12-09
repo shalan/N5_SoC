@@ -56,7 +56,7 @@ module APB_I2C(
     begin
       I2C_IM_REG <= 1'b0;
     end
-    else if(PENABLE & PWRITE & PREADY & PSEL & PADDR[2] & ~PADDR[3] & PADDR[4])
+    else if(PENABLE & PWRITE & PREADY & PSEL & (PADDR[4:2] == 3'h7))
       I2C_IM_REG <= PWDATA[0:0];
   end
 
@@ -81,6 +81,6 @@ module APB_I2C(
 			.sda_oen_o(sda_oen_o)  // SDA-line output enable (active low)
 	);
   
-  assign PRDATA[31:0] = io_do;//I2C_DATA_REG;
+  assign PRDATA[31:0] = (PADDR[4:2] == 3'h7) ? I2C_IM_REG : io_do;//I2C_DATA_REG;
   
 endmodule
