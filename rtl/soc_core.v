@@ -5,15 +5,15 @@ module soc_core (
 	input HCLK, 
 	input HRESETn,
 	
-	//input [7: 0] Input_DATA,
-	//input [0: 0] Input_irq,
-	//output Output_DATA,
 
-	input wire [3: 0] fdi_Sys0_S0,
-	output wire [3: 0] fdo_Sys0_S0,
-	output wire [0: 0] fdoe_Sys0_S0,
-	output wire [0: 0] fsclk_Sys0_S0,
-	output wire [0: 0] fcen_Sys0_S0,
+	input wire 			NMI,
+	input wire [7:0]	SYSTICKCLKDIV,
+
+	input wire [3: 0] 	fdi_Sys0_S0,
+	output wire [3: 0] 	fdo_Sys0_S0,
+	output wire [0: 0] 	fdoe_Sys0_S0,
+	output wire [0: 0] 	fsclk_Sys0_S0,
+	output wire [0: 0] 	fcen_Sys0_S0,
 
 	input wire [15: 0] GPIOIN_Sys0_S2,
 	output wire [15: 0] GPIOOUT_Sys0_S2,
@@ -241,13 +241,13 @@ module soc_core (
 		.HRDATA(M2_HRDATA),
 
 		//NMI
-		.NMI(1'b0),
+		.NMI(NMI),
 
 		//Interrupts
 		.IRQ(M2_IRQ),
 
 		// SYSTICK Divisor
-		.SYSTICKCLKDIV(8'd100)
+		.SYSTICKCLKDIV(SYSTICKCLKDIV)
 	);
   endmodule
   

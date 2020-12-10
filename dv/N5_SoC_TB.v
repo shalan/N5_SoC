@@ -65,6 +65,9 @@ module N5_SoC_TB;
         .HCLK(HCLK),
         .HRESETn(HRESETn),
 
+        .SYSTICKCLKDIV(8'd100),
+        .NMI(1'b0),
+
         //input [7: 0] Input_DATA,
         //input [0: 0] Input_irq,
         //output Output_DATA,
