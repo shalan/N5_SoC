@@ -13,7 +13,7 @@
 ## Peripherals
 |Peripheral|Bus|Base Address|IRQ #|
 |----------|---|------------|--------|
-|GPIO (14)|AHB|0x48000000|0|
+|GPIO (14)|AHB|0x48000000|0-15|
 |UART0|APB|0x40000000|16|
 |UART1|APB|0x40100000|17|
 |SPI0|APB|0x40200000|18|

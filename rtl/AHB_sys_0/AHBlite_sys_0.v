@@ -159,7 +159,9 @@ module AHBlite_sys_0(
 			.WGPIODIR(WGPIODIR_S2),
 			.HRDATA(HRDATA_S2),
 			.HREADYOUT(HREADY_S2),
-			.HRESP(HRESP)
+			.HRESP(HRESP), 
+
+			.IRQ(IRQ[15:0])
 		);
                 
 		//AHB Slave # 3
@@ -180,7 +182,6 @@ module AHBlite_sys_0(
 			.HRESP(HRESP)
 		);
                 
-        
         //AHB Bus
         AHBlite_BUS0 AHB(
             .HCLK(HCLK),
