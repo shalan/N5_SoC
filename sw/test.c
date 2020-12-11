@@ -11,6 +11,9 @@ int main(){
     gpio_set_dir(0x00FF);
     gpio_write(0x0055);
 
+    *(unsigned int *)(0x49000000) = -20;
+    *(unsigned int *)(0x49000004) = 50;
+    
     uart_init (0, 0);
     uart_puts (0, "Hello World!\n", 13);
 
