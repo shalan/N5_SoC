@@ -1,20 +1,32 @@
 
 #include "n5_regs.h"
+void IRQ (void) __attribute__ ((interrupt ("machine")));
 
-#define GPIO_BASE_ADDR      0x48000000
-
+/* GPIO */
 void gpio_set_dir(unsigned int d) { 
-    *((unsigned int *)(GPIO_BASE_ADDR+0x10)) = d; 
+    *GPIO_DIR = d; 
 }
 
 void gpio_write(unsigned int d) { 
-    *((unsigned int *)(GPIO_BASE_ADDR+0x04)) = d; 
+    *GPIO_DOUT = d;
 }
 
 unsigned int gpio_read() {  
-    return *((unsigned int *)(GPIO_BASE_ADDR+0x04));
+    return *(GPIO_DIR);
 }
 
+void gpio_pull (unsigned char d){
+    *GPIO_PD = 0;
+    *GPIO_PU = 0;
+    if(d==0) *GPIO_PD = 1;
+    else *GPIO_PU = 1;
+}
+
+void gpio_im(unsigned int im){
+    *GPIO_IM = im;
+}
+
+/* UART */
 int uart_init(unsigned int n, unsigned int prescaler){
     if(n>1) return -1;
     if(n==1){
@@ -63,18 +75,134 @@ int uart_gets(unsigned int n, unsigned char *msg, unsigned int len){
     return 0;
 }
 
+/* SPI */
+int spi_init(unsigned int n, unsigned char cpol, unsigned char cpha, unsigned char clkdiv){
+  unsigned int cfg_value = 0;
+  cfg_value |=  cpol;
+  cfg_value |=  (cpha << 1);
+  cfg_value |=  ((unsigned int)clkdiv << 2);
+  if(n>1) return -1;
+  if(n==0)  *SPI0_CFG = cfg_value;
+  else *SPI1_CFG = cfg_value;
+}
+
+unsigned int spi_status(unsigned int n){
+    if(n>1) return -1;
+    if(n==0)    
+        return *SPI0_STATUS & 1;
+    else 
+        return *SPI1_STATUS & 1;
+}
+
+unsigned char spi_read(unsigned int n){
+    if(n>1) return -1;
+    if(n==0)  
+        return *SPI0_DATA;
+    else 
+        return *SPI1_DATA;
+}
+
+void spi_write(unsigned int n, unsigned char data){
+    if(n>1) return -1;
+    if(n==0) {
+        *SPI0_DATA =  data;
+        SET_BIT(*SPI0_CTRL, SPI_GO_BIT);
+        CLR_BIT(*SPI0_CTRL, SPI_GO_BIT);
+        while(!spi_status(n));
+    } else{
+        *SPI1_DATA =  data;
+        SET_BIT(*SPI1_CTRL, SPI_GO_BIT);
+        CLR_BIT(*SPI1_CTRL, SPI_GO_BIT);
+        while(!spi_status(n));
+    }
+}
+
+/* i2c */
+int i2c_init(unsigned int n, unsigned int pre){
+    if(n>1) return -1;
+    if(n==0) {
+        *(I2C0_PRE_LO) = pre & 0xff;
+        *(I2C0_PRE_HI) = pre & 0xff00;
+        *(I2C0_CTRL) = I2C_CTRL_EN | I2C_CTRL_IEN;
+    } else {
+        *(I2C1_PRE_LO) = pre & 0xff;
+        *(I2C1_PRE_HI) = pre & 0xff00;
+        *(I2C1_CTRL) = I2C_CTRL_EN | I2C_CTRL_IEN;
+    }
+}
+
+int i2c_send(unsigned int n, unsigned char saddr, unsigned char sdata){
+    if(n>1) return -1;
+    if(n==0) {
+        *(I2C0_TX) = saddr;
+        *(I2C0_CMD) = I2C_CMD_STA | I2C_CMD_WR;
+        while( ((*I2C0_STAT) & I2C_STAT_TIP) != 0 );
+        //(*I2C_STAT) & I2C_STAT_TIP ;
+
+        if( ((*I2C0_STAT) & I2C_STAT_RXACK)) {
+            *(I2C0_CMD) = I2C_CMD_STO;
+            return 0;
+        }
+        *(I2C0_TX) = sdata;
+        *(I2C0_CMD) = I2C_CMD_WR;
+        while( (*I2C0_STAT) & I2C_STAT_TIP );
+        *(I2C0_CMD) = I2C_CMD_STO;
+        if( ((*I2C0_STAT) & I2C_STAT_RXACK ))
+            return 0;
+        else
+            return 1;
+    } else {
+        *(I2C1_TX) = saddr;
+        *(I2C1_CMD) = I2C_CMD_STA | I2C_CMD_WR;
+        while( ((*I2C1_STAT) & I2C_STAT_TIP) != 0 );
+        //(*I2C_STAT) & I2C_STAT_TIP ;
+
+        if( ((*I2C1_STAT) & I2C_STAT_RXACK)) {
+            *(I2C1_CMD) = I2C_CMD_STO;
+            return 0;
+        }
+        *(I2C1_TX) = sdata;
+        *(I2C1_CMD) = I2C_CMD_WR;
+        while( (*I2C1_STAT) & I2C_STAT_TIP );
+        *(I2C1_CMD) = I2C_CMD_STO;
+        if( ((*I2C1_STAT) & I2C_STAT_RXACK ))
+            return 0;
+        else
+            return 1;
+    }
+}
+
+void IRQ() {
+    gpio_write(0x0099);        
+}
+
+unsigned int A[100];
 int main(){
-    gpio_set_dir(0xFFFF);
-    gpio_write(0x0550);
+    gpio_set_dir(0x00FF);
+    gpio_write(0x0055);
+
+    //for(i=0; i<100; i++)
+
 
     uart_init (0, 0);
     uart_puts (0, "Hello World!\n", 13);
 
-    gpio_write(0x0AA0);
+    gpio_write(0x00AA);
 
-    for(int i=0; i<100; i++);
+    for(int i=0; i<50; i++);
 
-    gpio_write(0x0AA0);
+    gpio_write(0x00AA);
+
+    int x = 5;
+    asm volatile ("csrrw   zero, mie, %0" :: "r" (x));
+    
+    x = 0x100;
+    asm volatile ("csrrw   zero, 0x310, %0" :: "r" (x));
+
+    gpio_im(0x0100);
+
+    for(int i=0; i<50; i++);
 
     return 0;
 }
+

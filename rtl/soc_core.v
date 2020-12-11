@@ -77,10 +77,10 @@ module soc_core (
 	wire [3: 0] SRAMWEN_Sys0_S1;
 	wire [31: 0] SRAMWDATA_Sys0_S1;
 	wire [0: 0] SRAMCS0_Sys0_S1;
-	wire [0: 0] SRAMCS1_Sys0_S1;
-	wire [0: 0] SRAMCS2_Sys0_S1;
-	wire [0: 0] SRAMCS3_Sys0_S1;
-	wire [14: 0] SRAMADDR_Sys0_S1;
+	//wire [0: 0] SRAMCS1_Sys0_S1;
+	//wire [0: 0] SRAMCS2_Sys0_S1;
+	//wire [0: 0] SRAMCS3_Sys0_S1;
+	wire [11: 0] SRAMADDR_Sys0_S1;
 	// AHB LITE Master2 Signals
 	wire [31:0] M2_HADDR;
 	wire [0:0] M2_HREADY;
@@ -97,6 +97,9 @@ module soc_core (
 	wire M2_HBUSREQ;
 	wire M2_HLOCK;
 	wire M2_HGRANT;
+
+	wire [31:0] SRAMRDATA0, SRAMRDATA1, SRAMRDATA2; 
+
 	assign M2_HREADY = HREADY_Sys0; 
 	assign M2_HRDATA = HRDATA_Sys0;
 
@@ -217,15 +220,37 @@ module soc_core (
 		);
         
 
-	DFFRAM #( .COLS(4) ) soc_sram (
+	DFFRAM #( .COLS(4) ) soc_sram0 (
 		.CLK(HCLK),
 		.WE(SRAMWEN_Sys0_S1),
-		.EN(SRAMCS0_Sys0_S1),
+		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd0)),
 		.Di(SRAMWDATA_Sys0_S1),
-		.Do(SRAMRDATA_Sys0_S1),
-		.A(SRAMADDR_Sys0_S1)
+		.Do(SRAMRDATA0),
+		.A(SRAMADDR_Sys0_S1[9:0])
 	);    
 	
+		DFFRAM #( .COLS(4) ) soc_sram1 (
+		.CLK(HCLK),
+		.WE(SRAMWEN_Sys0_S1),
+		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd1)),
+		.Di(SRAMWDATA_Sys0_S1),
+		.Do(SRAMRDATA1),
+		.A(SRAMADDR_Sys0_S1[9:0])
+	); 
+
+		DFFRAM #( .COLS(4) ) soc_sram2 (
+		.CLK(HCLK),
+		.WE(SRAMWEN_Sys0_S1),
+		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd2)),
+		.Di(SRAMWDATA_Sys0_S1),
+		.Do(SRAMRDATA2),
+		.A(SRAMADDR_Sys0_S1[9:0])
+	); 
+
+
+	assign SRAMRDATA_Sys0_S1 = 	(SRAMADDR_Sys0_S1[11:10] == 2'd0) ? SRAMRDATA0 :
+								(SRAMADDR_Sys0_S1[11:10] == 2'd1) ? SRAMRDATA1 : 
+								(SRAMADDR_Sys0_S1[11:10] == 2'd2) ? SRAMRDATA2 : 32'b0;
 	// Instantiation of NfiVe32
 	//NfiVe32 N5(
 	NfiVe32_SYS CPU (

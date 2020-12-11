@@ -2,7 +2,7 @@
 
 `define   TEST_FILE   "../sw/test.hex" 
 `define   SIM_TIME    100_000
-`define   SIM_LEVEL   4
+`define   SIM_LEVEL   0
 
 module N5_SoC_TB;
 
@@ -114,13 +114,13 @@ module N5_SoC_TB;
         .sda_i_Sys0_SS0_S5(sda_i_Sys0_SS0_S5),
         .sda_o_Sys0_SS0_S5(sda_o_Sys0_SS0_S5),
         .sda_oen_o_Sys0_SS0_S5(sda_oen_o_Sys0_SS0_S5)
-/*
-        output wire [0: 0] pwm_Sys0_SS0_S6,
-        output wire [0: 0] pwm_Sys0_SS0_S7 */
-        //.db_reg_Sys0(db_reg_Sys0)
+
     );
 
-// Load the application into the flash memory
+    // GPIO Loopback!
+    assign GPIOIN_Sys0_S2[15:8] = GPIOOUT_Sys0_S2[7:0];
+
+    // Load the application into the flash memory
     initial begin
         #1  $readmemh(`TEST_FILE, flash.I0.memory);
     end

@@ -49,8 +49,8 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-`define		USE_RF_MODULE
-`define		USE_RF_HC
+//`define		USE_RF_MODULE
+//`define		USE_RF_HC
 //`define		USE_ALU_HC
 
 //`define DBG
@@ -916,9 +916,10 @@ module NfiVe32 (
 
     wire        exception   =   (CSR_MIE[0] & ((tmr_int & CSR_MIE[1]) | (IRQ & CSR_MIE[2]))) | NMI | instr_ecall;
     wire [31:0] pc_ex       =   instr_ecall ?   32'd12              :
+								instr_ebreak?	32'd16				:
                                 NMI         ?   32'd4               :
                                 tmr_int     ?   32'd8               :
-                                IRQ         ?   (32'd64+IRQ_NUM<<2) :   32'd60;
+                                IRQ         ?   (32'd64+(IRQ_NUM<<2)) :   32'd60;
 
 
     assign IRQ_MASK = CSR_IRQMASK;
@@ -1077,7 +1078,7 @@ module NfiVe32 (
     `SYNC_END
     
     `SYNC_BEGIN(INEXCEPTION, 1'h0)
-        if(exception & C3) INEXCEPTION <= 1'h1;
+        if(exception & C3 & !INEXCEPTION) INEXCEPTION <= 1'h1;
         else if(instr_mret & C3) INEXCEPTION <= 1'h0;
     `SYNC_END
     
@@ -1117,7 +1118,7 @@ module NfiVe32 (
     `SYNC_BEGIN(PC, 32'h0)
         if(C2 & instr_mret)
             PC <= CSR_EPC;
-        else if(C2 & exception)
+        else if(C2 & exception & !INEXCEPTION)
             PC <= pc_ex;
         else if(C2)    
             PC <= npc; 
