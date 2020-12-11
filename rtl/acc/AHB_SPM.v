@@ -100,7 +100,6 @@ module AHB_SPM #(parameter SIZE=32) (
 
     reg [3:0]   STATE, nstate;
 
-
     always @(posedge HCLK or negedge HRESETn)
     if(~HRESETn) begin
         AHB_WRITE   <=  1'b0;
@@ -152,8 +151,7 @@ module AHB_SPM #(parameter SIZE=32) (
 
     always @* begin
         ncnt = 0;
-        if(AHB_WRITE && (AHB_ADDR == Y_OFF)) ncnt=1;
-        else if(CNT==31) ncnt <= 0;
+        if(CNT==31) ncnt <= 0;
         else if(STATE==S1) ncnt=CNT+1;
     end
 
@@ -166,6 +164,8 @@ module AHB_SPM #(parameter SIZE=32) (
     );
 
     assign HREADYOUT = (STATE == S0);
+
+    assign HRDATA = P0;
 
 endmodule
 /*
