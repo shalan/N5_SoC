@@ -25,7 +25,6 @@
 ../rtl/IPs/APB_SPI.v
 ../rtl/IPs/APB_I2C.v
 ../dv/DFFRAM_beh.v
-+define+HC_CACHE=1
 ../rtl/IPs/QSPI_XIP_CTRL.v
 ../rtl/IPs/AHBSRAM.v
 ../rtl/IPs/DFFRAM.v
@@ -33,9 +32,7 @@
 
 N5_SoC_TB.v
 sst26wf080b.v
-#+define+USE_DFFRAM_BEH=1
++define+USE_DFFRAM_BEH=1
 ../rtl/soc_core.v
-+define+USE_RF_MODULE=1
-+define+USE_RF_HC=1
 ../rtl/NfiVe32.v 
 ../rtl/DFFRFile.v 

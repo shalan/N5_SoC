@@ -119,8 +119,6 @@
 `define     SYS_CSRRSI      3'b110
 `define     SYS_CSRRCI      3'b111
 
-
-
 module RV32_DECOMP	(	
 				    	input   [15:0]  IRi,
 				    	output  [31:0]  IRo
