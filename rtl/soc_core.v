@@ -1,5 +1,7 @@
 
+`default_nettype none
 `timescale 1ns/1ns
+//`define		USE_DFFRAM_BEH
 
 module soc_core (
 	input HCLK, 
@@ -219,8 +221,12 @@ module soc_core (
 		*/
 		);
         
-
-	DFFRAM #( .COLS(4) ) soc_sram0 (
+`ifdef USE_DFFRAM_BEH
+	DFFRAM_beh 
+`else
+	DFFRAM
+`endif
+	#( .COLS(4) ) soc_sram0 (
 		.CLK(HCLK),
 		.WE(SRAMWEN_Sys0_S1),
 		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd0)),
@@ -229,7 +235,12 @@ module soc_core (
 		.A(SRAMADDR_Sys0_S1[9:0])
 	);    
 	
-		DFFRAM #( .COLS(4) ) soc_sram1 (
+`ifdef USE_DFFRAM_BEH
+	DFFRAM_beh 
+`else
+	DFFRAM
+`endif
+		#( .COLS(4) ) soc_sram1 (
 		.CLK(HCLK),
 		.WE(SRAMWEN_Sys0_S1),
 		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd1)),
@@ -238,7 +249,12 @@ module soc_core (
 		.A(SRAMADDR_Sys0_S1[9:0])
 	); 
 
-		DFFRAM #( .COLS(4) ) soc_sram2 (
+`ifdef USE_DFFRAM_BEH
+	DFFRAM_beh 
+`else
+	DFFRAM
+`endif
+		#( .COLS(4) ) soc_sram2 (
 		.CLK(HCLK),
 		.WE(SRAMWEN_Sys0_S1),
 		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd2)),

@@ -1,4 +1,4 @@
-module DFFRAM #( parameter COLS=1)
+module DFFRAM_beh #( parameter COLS=1)
 (
     CLK,
     WE,
