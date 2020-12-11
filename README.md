@@ -30,4 +30,10 @@
 |WDT1|APB|0x40D00000|27|
 
 
+## How to use
+- To simulate: type `make` inside the `dv` folder. For a faster simulation use `make fast_sim` instead which disables the usage of the hand-crafted modules.
+-  To synthesize with the hand-crafted modules, define the following macros:
+   -  `HC_CACHE`
+   -  `USE_RF_MODULE`
+   -  `USE_RF_HC`
 
