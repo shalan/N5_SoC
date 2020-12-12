@@ -29,13 +29,13 @@
 ../rtl/IPs/AHBSRAM.v
 ../rtl/IPs/DFFRAM.v
 ../rtl/IPs/DFFRAMBB.v
-
++define+USE_DFFRAM_BEH=1
+../rtl/IPs/RAM_4Kx32.v
 ../rtl/acc/AHB_SPM.v
 
 
 N5_SoC_TB.v
 sst26wf080b.v
-+define+USE_DFFRAM_BEH=1
 ../rtl/soc_core.v
 ../rtl/NfiVe32.v 
 ../rtl/DFFRFile.v 
