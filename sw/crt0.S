@@ -1,4 +1,4 @@
-//#define	EXT_MUL
+#define	EXT_MUL
 
 #define r_type_insn(_f7, _rs2, _rs1, _f3, _rd, _opc) \
 .word (((_f7) << 25) | ((_rs2) << 20) | ((_rs1) << 15) | ((_f3) << 12) | ((_rd) << 7) | ((_opc) << 0))
@@ -112,7 +112,11 @@ irq0_hand:
 #ifdef EXT_MUL
 .global __mulsi3
 __mulsi3:
-        ext_mul(10, 10, 11)
+        #ext_mul(10, 10, 11)
+		la	t0, 0x49000000
+		sw	a0, 0(t0)
+		sw	a1, 4(t0)
+		lw	a0, 0(t0)
         ret
 #endif
 
