@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
+`define USE_DFFRAM_BEH
 module RAM_4Kx32 #(parameter BLOCKS=4)(
     CLK,
     WE,
@@ -16,9 +17,8 @@ module RAM_4Kx32 #(parameter BLOCKS=4)(
     output  [31:0]  Do;
     input   [12:0]   A;
 
-    reg  [7:0]       _EN_ ;
+    wire  [BLOCKS-1:0]       _EN_ ;
     wire [31:0] _Do_ [7:0];
-    reg [31:0]  Do;
 
     generate 
         genvar gi;
@@ -41,20 +41,16 @@ module RAM_4Kx32 #(parameter BLOCKS=4)(
             for(gi=BLOCKS; gi<8; gi=gi+1)
                 assign _Do_[gi] = 32'b0;
     endgenerate 
-    integer i;
-
+    
     // The block decoder
-    always @* begin
-        for(i=0; i<8; i=i+1)
-            if(i==A[12:10]) _EN_[i]=1'b1;
-            else _EN_[i] = 1'b0;
-    end
-
+    assign _EN_[0] = A[11:10] == 2'd0;
+    assign _EN_[1] = A[11:10] == 2'd1;
+    assign _EN_[2] = A[11:10] == 2'd2;
+    assign _EN_[3] = A[11:10] == 2'd3;
+    
     // Output Data multiplexor
-    always @* begin
-        Do = 32'h0;
-        for(i=0; i<8; i=i+1)
-            if(i==A[12:10]) Do=_Do_[i];
-    end
-
+    assign Do = (A[11:10] == 2'd0) ? _Do_[0] : 
+                (A[11:10] == 2'd1) ? _Do_[1] : 
+                (A[11:10] == 2'd2) ? _Do_[2] : _Do_[3];
+    
 endmodule
