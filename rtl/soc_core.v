@@ -7,7 +7,6 @@ module soc_core (
 	input HCLK, 
 	input HRESETn,
 	
-
 	input wire 			NMI,
 	input wire [7:0]	SYSTICKCLKDIV,
 
@@ -53,9 +52,7 @@ module soc_core (
 	output wire [0: 0] sda_oen_o_Sys0_SS0_S5,
 	output wire [0: 0] pwm_Sys0_SS0_S6,
 	output wire [0: 0] pwm_Sys0_SS0_S7
-    );
-
-
+);
 	// wire HCLK_Sys0;
 	// wire HRESETn_Sys0;
 
@@ -220,7 +217,8 @@ module soc_core (
 		.IRQ_SS0_S13(IRQ_Sys0_SS0_S13)
 		*/
 		);
-        
+
+/*       
 `ifdef USE_DFFRAM_BEH
 	DFFRAM_beh 
 `else
@@ -234,7 +232,8 @@ module soc_core (
 		.Do(SRAMRDATA0),
 		.A(SRAMADDR_Sys0_S1[9:0])
 	);    
-	
+
+
 `ifdef USE_DFFRAM_BEH
 	DFFRAM_beh 
 `else
@@ -262,11 +261,21 @@ module soc_core (
 		.Do(SRAMRDATA2),
 		.A(SRAMADDR_Sys0_S1[9:0])
 	); 
+*/
+	RAM_4Kx32 RAM (
+		.CLK(HCLK),
+		.WE(SRAMWEN_Sys0_S1),
+		.EN(SRAMCS0_Sys0_S1),
+		.Di(SRAMWDATA_Sys0_S1),
+		.Do(SRAMRDATA_Sys0_S1),
+		.A(SRAMADDR_Sys0_S1[11:0])
+	);
 
-
+/*
 	assign SRAMRDATA_Sys0_S1 = 	(SRAMADDR_Sys0_S1[11:10] == 2'd0) ? SRAMRDATA0 :
 								(SRAMADDR_Sys0_S1[11:10] == 2'd1) ? SRAMRDATA1 : 
 								(SRAMADDR_Sys0_S1[11:10] == 2'd2) ? SRAMRDATA2 : 32'b0;
+*/
 	// Instantiation of NfiVe32
 	//NfiVe32 N5(
 	NfiVe32_SYS CPU (
