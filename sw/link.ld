@@ -7,9 +7,9 @@ MEMORY
         LENGTH = 1M
     SRAM (rwx) :
         ORIGIN = 0x20000000,
-        LENGTH = 12K
+        LENGTH = 16K
     stack (rw):
-        ORIGIN = 0x20000000 + 8K
+        ORIGIN = 0x20000000 + 12K
         LENGTH = 4K
 }
 
