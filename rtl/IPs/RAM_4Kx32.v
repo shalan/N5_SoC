@@ -1,8 +1,7 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
-`define USE_DFFRAM_BEH
-module RAM_4Kx32 #(parameter BLOCKS=4)(
+module RAM_4Kx32 (
     CLK,
     WE,
     EN,
@@ -15,10 +14,11 @@ module RAM_4Kx32 #(parameter BLOCKS=4)(
     input           EN;
     input   [31:0]  Di;
     output  [31:0]  Do;
-    input   [12:0]   A;
+    input   [11:0]   A;
 
+    localparam BLOCKS=4;
     wire  [BLOCKS-1:0]       _EN_ ;
-    wire [31:0] _Do_ [7:0];
+    wire [31:0] _Do_ [BLOCKS-1:0];
 
     generate 
         genvar gi;
@@ -37,9 +37,7 @@ module RAM_4Kx32 #(parameter BLOCKS=4)(
                 .Do(_Do_[gi]),
                 .A(A[9:0])
             );
-        if(BLOCKS<8)
-            for(gi=BLOCKS; gi<8; gi=gi+1)
-                assign _Do_[gi] = 32'b0;
+        
     endgenerate 
     
     // The block decoder
