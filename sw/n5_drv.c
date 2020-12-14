@@ -11,7 +11,7 @@ void gpio_write(unsigned int d) {
 }
 
 unsigned int gpio_read() {  
-    return *(GPIO_DIR);
+    return *GPIO_DIN;
 }
 
 void gpio_pull (unsigned char d){
@@ -101,7 +101,7 @@ unsigned char spi_read(unsigned int n){
         return *SPI1_DATA;
 }
 
-void spi_write(unsigned int n, unsigned char data){
+int spi_write(unsigned int n, unsigned char data){
     if(n>1) return -1;
     if(n==0) {
         *SPI0_DATA =  data;
@@ -114,6 +114,26 @@ void spi_write(unsigned int n, unsigned char data){
         CLR_BIT(*SPI1_CTRL, SPI_GO_BIT);
         while(!spi_status(n));
     }
+    return 0;
+}
+
+int spi_start(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) {    
+        SET_BIT(*SPI0_CTRL, SPI_SS_BIT);
+    } else {
+        SET_BIT(*SPI1_CTRL, SPI_SS_BIT);
+    }
+    return 0;
+}
+
+int spi_end(unsigned int n){
+    if(n>1) return -1;
+    if(n==0)    
+        CLR_BIT(*SPI0_CTRL, SPI_SS_BIT);
+    else 
+        CLR_BIT(*SPI1_CTRL, SPI_SS_BIT);
+    return 0;
 }
 
 /* i2c */
@@ -169,4 +189,37 @@ int i2c_send(unsigned int n, unsigned char saddr, unsigned char sdata){
         else
             return 1;
     }
+}
+
+/* PWM */
+int pwm_init(unsigned int n, unsigned int cmp1, unsigned int cmp2, unsigned int pre){
+  if(n>1) return -1;
+    if(n==0) {
+        *PWM0_CMP1 = cmp1;
+        *PWM0_CMP2 = cmp2;
+        *PWM0_PRE = pre;
+    } else {
+        *PWM1_CMP1 = cmp1;
+        *PWM1_CMP2 = cmp2;
+        *PWM1_PRE = pre;
+    }
+    return 0;
+}
+
+int pwm_enable(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        *PWM0_CTRL = 0x1;
+    else
+        *PWM0_CTRL = 0x1;
+    return 0;
+}
+
+int§ pwm_disable(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        *PWM0_CTRL = 0x0;
+    else
+        *PWM0_CTRL = 0x0;
+    return 0;
 }

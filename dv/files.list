@@ -33,11 +33,13 @@
 ../rtl/IPs/RAM_4Kx32.v
 ../rtl/acc/AHB_SPM.v
 
-N5_SoC_TB.v
-sst26wf080b.v
 #+define+USE_DFFRAM_BEH=1
 ../rtl/soc_core.v
 +define+USE_RF_MODULE=1
 +define+USE_RF_HC=1
 ../rtl/NfiVe32.v 
 ../rtl/DFFRFile.v 
+
+N5_SoC_TB.v
+sst26wf080b.v
+23LC512.v 
