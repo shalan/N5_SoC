@@ -215,7 +215,7 @@ int pwm_enable(unsigned int n){
     return 0;
 }
 
-int§ pwm_disable(unsigned int n){
+int pwm_disable(unsigned int n){
     if(n>1) return -1;
     if(n==0) 
         *PWM0_CTRL = 0x0;
