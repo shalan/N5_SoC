@@ -684,19 +684,19 @@ module mrdata_align(
 );
 
     wire [31:0] s_ext, u_ext;
-    wire [7:0] byte;
+    wire [7:0] _byte_;
     wire [15:0] hword;
 
-    assign byte = 	(A==2'd0) ? d[7:0] :
+    assign _byte_ = 	(A==2'd0) ? d[7:0] :
                 	(A==2'd1) ? d[15:8] :
                 	(A==2'd2) ? d[23:16] : d[31:24];
 
     assign hword = 	(A[1]==0) ? d[15:0] : d[31:16];
 
-    assign u_ext =  (size==2'd0)  ? {24'd0,byte}  :
+    assign u_ext =  (size==2'd0)  ? {24'd0,_byte_}  :
                     (size==2'd1)  ? {16'd0,hword} : d;
 
-    assign s_ext =  (size==2'd0)  ? {{24{byte[7]}},byte}   :
+    assign s_ext =  (size==2'd0)  ? {{24{_byte_[7]}},_byte_}   :
                     (size==2'd1)  ? {{24{hword[15]}},hword} : d;
 
     assign ed = sign ? u_ext : s_ext;
@@ -711,17 +711,17 @@ module mwdata_align(
     input wire [1:0] A
   );
 
-    wire [7:0] byte = d[7:0];
+    wire [7:0] _byte_ = d[7:0];
     wire [15:0] hword = d[15:0];
 
-    wire [31:0] byte_word, hw_word;
+    wire [31:0] _byte__word, hw_word;
 
-    assign  byte_word = (A==2'd0) ? d :
-                        (A==2'd1) ? {16'd0, byte, 8'd0} :
-                        (A==2'd2) ? {8'd0, byte, 16'd0} : {byte, 24'd0} ;
+    assign  _byte__word = (A==2'd0) ? d :
+                        (A==2'd1) ? {16'd0, _byte_, 8'd0} :
+                        (A==2'd2) ? {8'd0, _byte_, 16'd0} : {_byte_, 24'd0} ;
     assign  hw_word   = (~A[1])  ? d : {hword, 16'd0};
 
-    assign fd = (size==2'd0) ? byte_word :
+    assign fd = (size==2'd0) ? _byte__word :
                 (size==2'd1) ? hw_word : d;
 
 endmodule
@@ -835,7 +835,7 @@ module NfiVe32 (
 
 	// AHB-LITE MASTER PORT for Instructions
 	output wire [31:0]  HADDR,				// AHB transaction address
-	output wire [ 2:0]  HSIZE,				// AHB size: byte, half-word or word
+	output wire [ 2:0]  HSIZE,				// AHB size: _byte_, half-word or word
 	output wire [ 1:0]  HTRANS,				// AHB transfer: non-sequential only
 	output wire [31:0]  HWDATA,				// AHB write-data
 	output wire         HWRITE,				// AHB write control
@@ -1211,7 +1211,7 @@ module NfiVe32_SYS (
 
 	// AHB-LITE MASTER PORT for Instructions
 	output wire [31:0]  HADDR,				// AHB transaction address
-	output wire [ 2:0]  HSIZE,				// AHB size: byte, half-word or word
+	output wire [ 2:0]  HSIZE,				// AHB size: _byte_, half-word or word
 	output wire [ 1:0]  HTRANS,				// AHB transfer: non-sequential only
 	output wire [31:0]  HWDATA,				// AHB write-data
 	output wire         HWRITE,				// AHB write control
