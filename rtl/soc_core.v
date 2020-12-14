@@ -50,6 +50,7 @@ module soc_core (
 	input wire [0: 0] sda_i_Sys0_SS0_S5,
 	output wire [0: 0] sda_o_Sys0_SS0_S5,
 	output wire [0: 0] sda_oen_o_Sys0_SS0_S5,
+	
 	output wire [0: 0] pwm_Sys0_SS0_S6,
 	output wire [0: 0] pwm_Sys0_SS0_S7
 );
