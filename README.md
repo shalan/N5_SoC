@@ -8,7 +8,7 @@
 - Clock Management IP.
 
 ## Architecure
-<img src="./docs/soc_arch.png" size="60%">
+<img src="./docs/soc_arch.png" size="50%">
 
 ## The Memory Map
 <img src="./docs/soc_mem_map.png" size="50%">
