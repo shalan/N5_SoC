@@ -129,7 +129,6 @@ module user_project_wrapper (
         .sda_o_Sys0_SS0_S4(io_out[33]),
         .sda_oen_o_Sys0_SS0_S4(io_oeb[33]),
 
-
         .scl_i_Sys0_SS0_S5(io_in[34]),
         .scl_o_Sys0_SS0_S5(io_out[34]),
         .scl_oen_o_Sys0_SS0_S5(io_oeb[34]),
@@ -137,10 +136,8 @@ module user_project_wrapper (
         .sda_o_Sys0_SS0_S5(io_out[35]),
         .sda_oen_o_Sys0_SS0_S5(io_oeb[35]),
 
-
         .pwm_Sys0_SS0_S6(io_out[36]),
         .pwm_Sys0_SS0_S7(io_out[37])
-
     );
    
 

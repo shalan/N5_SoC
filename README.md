@@ -8,10 +8,10 @@
 - Clock Management IP.
 
 ## Architecure
-<img src="./docs/soc_arch.png" size="75%">
+<img src="./docs/soc_arch.png" size="60%">
 
 ## The Memory Map
-<img src="./docs/soc_mem_map.png" siz3="75%">
+<img src="./docs/soc_mem_map.png" size="50%">
 
 ## Peripherals
 |Peripheral|Bus|Base Address|IRQ #|MPRJ I/O Pins|
