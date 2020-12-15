@@ -21,15 +21,13 @@ module soc_core (
 	output wire [15: 0] GPIOPU_Sys0_S2,
 	output wire [15: 0] GPIOPD_Sys0_S2,
 	output wire [15: 0] GPIOOEN_Sys0_S2,
-	
-	//output [3:0] db_reg_Sys0,
-		
+
 	input wire [0: 0] RsRx_Sys0_SS0_S0,
 	output wire [0: 0] RsTx_Sys0_SS0_S0,
-	//output wire [0: 0] uart_irq_Sys0_SS0_S0,
+
 	input wire [0: 0] RsRx_Sys0_SS0_S1,
 	output wire [0: 0] RsTx_Sys0_SS0_S1,
-	//output wire [0: 0] uart_irq_Sys0_SS0_S1,
+
 	input wire [0: 0] MSI_Sys0_SS0_S2,
 	output wire [0: 0] MSO_Sys0_SS0_S2,
 	output wire [0: 0] SSn_Sys0_SS0_S2,
@@ -51,12 +49,10 @@ module soc_core (
 	input wire [0: 0] sda_i_Sys0_SS0_S5,
 	output wire [0: 0] sda_o_Sys0_SS0_S5,
 	output wire [0: 0] sda_oen_o_Sys0_SS0_S5,
-	
+
 	output wire [0: 0] pwm_Sys0_SS0_S6,
 	output wire [0: 0] pwm_Sys0_SS0_S7
 );
-	// wire HCLK_Sys0;
-	// wire HRESETn_Sys0;
 
 	wire [31: 0] HADDR_Sys0;
 	wire [31: 0] HWDATA_Sys0;
@@ -66,22 +62,13 @@ module soc_core (
 
 	wire HREADY_Sys0;
 	wire [31: 0] HRDATA_Sys0;
-/*
-	wire IRQ_Sys0_SS0_S8;
-	wire IRQ_Sys0_SS0_S9;
-	wire IRQ_Sys0_SS0_S10;
-	wire IRQ_Sys0_SS0_S11;
-	wire IRQ_Sys0_SS0_S12;
-	wire IRQ_Sys0_SS0_S13;
-*/
+
 	wire [31: 0] SRAMRDATA_Sys0_S1;
 	wire [3: 0] SRAMWEN_Sys0_S1;
 	wire [31: 0] SRAMWDATA_Sys0_S1;
 	wire [0: 0] SRAMCS0_Sys0_S1;
-	//wire [0: 0] SRAMCS1_Sys0_S1;
-	//wire [0: 0] SRAMCS2_Sys0_S1;
-	//wire [0: 0] SRAMCS3_Sys0_S1;
 	wire [11: 0] SRAMADDR_Sys0_S1;
+
 	// AHB LITE Master2 Signals
 	wire [31:0] M2_HADDR;
 	wire [0:0] M2_HREADY;
@@ -113,16 +100,9 @@ module soc_core (
 	assign M2_HBUSREQ = 1'b1;
 
 
-	//assign M2_IRQ = 1'b0;
-
-  
-
 	//AHBlite_SYS0 instantiation
-
 	AHBlite_sys_0 ahb_sys_0_uut(
-		// .HCLK(HCLK_Sys0),
-		// .HRESETn(HRESETn_Sys0),
-    
+
 		.HCLK(HCLK),
 		.HRESETn(HRESETn),
          
@@ -134,10 +114,6 @@ module soc_core (
     
 		.HREADY(HREADY_Sys0),
 		.HRDATA(HRDATA_Sys0),
-		
-		//.Input_irq(Input_irq),
-		//.Input_DATA(Input_DATA),
-		//.Output_DATA(Output_DATA),
 		
 		// QSPI Interface
 		.fdi_S0(fdi_Sys0_S0),
@@ -151,9 +127,6 @@ module soc_core (
 		.SRAMWEN_S1(SRAMWEN_Sys0_S1),
 		.SRAMWDATA_S1(SRAMWDATA_Sys0_S1),
 		.SRAMCS0_S1(SRAMCS0_Sys0_S1),
-		//.SRAMCS1_S1(SRAMCS1_Sys0_S1),
-		//.SRAMCS2_S1(SRAMCS2_Sys0_S1),
-		//.SRAMCS3_S1(SRAMCS3_Sys0_S1),
 		.SRAMADDR_S1(SRAMADDR_Sys0_S1),
 
 		// GPIO Interface
@@ -162,19 +135,15 @@ module soc_core (
 		.GPIOPU_S2(GPIOPU_Sys0_S2),
 		.GPIOPD_S2(GPIOPD_Sys0_S2),
 		.GPIOOEN_S2(GPIOOEN_Sys0_S2),
-
-		//.db_reg(db_reg_Sys0),
 		
 		// APB Bus
 		// UART 0
 		.RsRx_SS0_S0(RsRx_Sys0_SS0_S0),
 		.RsTx_SS0_S0(RsTx_Sys0_SS0_S0),
-		//.uart_irq_SS0_S0(uart_irq_Sys0_SS0_S0),
 		
 		// UART 1
 		.RsRx_SS0_S1(RsRx_Sys0_SS0_S1),
 		.RsTx_SS0_S1(RsTx_Sys0_SS0_S1),
-		//.uart_irq_SS0_S1(uart_irq_Sys0_SS0_S1),
 
 		// SPI 0 Interface
 		.MSI_SS0_S2(MSI_Sys0_SS0_S2),
@@ -209,61 +178,10 @@ module soc_core (
 		.pwm_SS0_S7(pwm_Sys0_SS0_S7),
 
 		.IRQ(M2_IRQ)
-/*
-		// IRQ Lines
-		.IRQ_SS0_S8(IRQ_Sys0_SS0_S8),
-		.IRQ_SS0_S9(IRQ_Sys0_SS0_S9),
-		.IRQ_SS0_S10(IRQ_Sys0_SS0_S10),
-		.IRQ_SS0_S11(IRQ_Sys0_SS0_S11),
-		.IRQ_SS0_S12(IRQ_Sys0_SS0_S12),
-		.IRQ_SS0_S13(IRQ_Sys0_SS0_S13)
-		*/
-		);
 
-/*       
-`ifdef USE_DFFRAM_BEH
-	DFFRAM_beh 
-`else
-	DFFRAM
-`endif
-	#( .COLS(4) ) soc_sram0 (
-		.CLK(HCLK),
-		.WE(SRAMWEN_Sys0_S1),
-		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd0)),
-		.Di(SRAMWDATA_Sys0_S1),
-		.Do(SRAMRDATA0),
-		.A(SRAMADDR_Sys0_S1[9:0])
-	);    
+	);
 
 
-`ifdef USE_DFFRAM_BEH
-	DFFRAM_beh 
-`else
-	DFFRAM
-`endif
-		#( .COLS(4) ) soc_sram1 (
-		.CLK(HCLK),
-		.WE(SRAMWEN_Sys0_S1),
-		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd1)),
-		.Di(SRAMWDATA_Sys0_S1),
-		.Do(SRAMRDATA1),
-		.A(SRAMADDR_Sys0_S1[9:0])
-	); 
-
-`ifdef USE_DFFRAM_BEH
-	DFFRAM_beh 
-`else
-	DFFRAM
-`endif
-		#( .COLS(4) ) soc_sram2 (
-		.CLK(HCLK),
-		.WE(SRAMWEN_Sys0_S1),
-		.EN(SRAMCS0_Sys0_S1 & (SRAMADDR_Sys0_S1[11:10] == 2'd2)),
-		.Di(SRAMWDATA_Sys0_S1),
-		.Do(SRAMRDATA2),
-		.A(SRAMADDR_Sys0_S1[9:0])
-	); 
-*/
 	RAM_4Kx32 RAM (
 		.CLK(HCLK),
 		.WE(SRAMWEN_Sys0_S1),
@@ -273,13 +191,7 @@ module soc_core (
 		.A(SRAMADDR_Sys0_S1[11:0])
 	);
 
-/*
-	assign SRAMRDATA_Sys0_S1 = 	(SRAMADDR_Sys0_S1[11:10] == 2'd0) ? SRAMRDATA0 :
-								(SRAMADDR_Sys0_S1[11:10] == 2'd1) ? SRAMRDATA1 : 
-								(SRAMADDR_Sys0_S1[11:10] == 2'd2) ? SRAMRDATA2 : 32'b0;
-*/
 	// Instantiation of NfiVe32
-	//NfiVe32 N5(
 	NfiVe32_SYS CPU (
 		.HCLK(HCLK),
 		.HRESETn(HRESETn),
