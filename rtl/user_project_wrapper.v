@@ -85,6 +85,9 @@ module user_project_wrapper (
     assign io_oeb[31] = 1'b0; 
 
     // check csb pin -- io[3]
+    wire fdoeb;
+    
+    assign io_oeb[17:14] = {4{~fdoeb}};
 
     soc_core core(
 
@@ -102,7 +105,7 @@ module user_project_wrapper (
 
 	    .fdi_Sys0_S0(io_in[17:14]),
 	    .fdo_Sys0_S0(io_out[17:14]),
-		.fdoe_Sys0_S0(~io_oeb[17:14]),
+		.fdoe_Sys0_S0(fdoeb),
         .fsclk_Sys0_S0(io_out[18]),
 	    .fcen_Sys0_S0(io_out[19]),
 		
