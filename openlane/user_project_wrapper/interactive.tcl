@@ -30,7 +30,7 @@ place_io_ol
 apply_def_template
 
 set margin_x 200
-set margin_y 700
+set margin_y 800
 
 add_macro_placement core.RAM  $margin_x $margin_y N
 
@@ -49,7 +49,7 @@ set ::env(_H_PDN_OFFSET) 0
 set ::env(_SPACING) 1.6
 set ::env(_WIDTH) 3
 
-set power_domains [list {vccd1 vssd1} {vccd2 vssd2} {vdda1 vssa1} {vdda2 vssa2}]
+set power_domains [list {vccd1 vssd1}]
 
 foreach domain $power_domains {
 	set ::env(_VDD_NET_NAME) [lindex $domain 0]
@@ -70,11 +70,6 @@ global_placement_or
 detailed_placement
 
 run_cts
-
-
-global_placement_or
-
-detailed_placement
 
 run_routing
 

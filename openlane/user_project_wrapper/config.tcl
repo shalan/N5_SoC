@@ -40,7 +40,7 @@ set ::env(CLOCK_PERIOD) "10"
 set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 0
 set ::env(DIODE_INSERTION_STRATEGY) 0
 
-set ::env(PL_TARGET_DENSITY) 0.5
+set ::env(PL_TARGET_DENSITY) 0.4
 
 # Need to fix a FastRoute bug for this to work, but it's good
 # for a sense of "isolation"
