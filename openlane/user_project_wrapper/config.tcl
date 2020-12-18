@@ -37,10 +37,7 @@ set ::env(CLOCK_NET) "wb_clk_i"
 
 set ::env(CLOCK_PERIOD) "10"
 
-set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 0
-set ::env(DIODE_INSERTION_STRATEGY) 0
-
-set ::env(PL_TARGET_DENSITY) 0.4
+set ::env(PL_TARGET_DENSITY) 0.3
 
 # Need to fix a FastRoute bug for this to work, but it's good
 # for a sense of "isolation"
@@ -72,10 +69,12 @@ set ::env(VERILOG_FILES) "\
 
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$script_dir/../../rtl/IPs/DFFRAM.v
-	$script_dir/../../rtl/IPs/RAM_4Kx32.v"
+	$script_dir/../../rtl/IPs/RAM_3Kx32.v"
 
 set ::env(EXTRA_LEFS) "\
-	$script_dir/../../lef/RAM_4Kx32.lef"
+	$script_dir/../../lef/RAM_3Kx32.lef"
 
-# set ::env(EXTRA_GDS_FILES) "\
-# 	$script_dir/../../gds/RAM_5Kx32.gds"
+set ::env(EXTRA_GDS_FILES) "\
+ 	$script_dir/../../gds/RAM_3Kx32.gds"
+ 	
+set ::env(DIODE_INSERTION_STRATEGY) "3"

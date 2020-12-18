@@ -29,8 +29,8 @@ place_io_ol
 
 apply_def_template
 
-set margin_x 350
-set margin_y 150
+set margin_x 400
+set margin_y 230
 
 add_macro_placement core.RAM  $margin_x $margin_y N
 
@@ -46,7 +46,7 @@ set ::env(_V_PITCH) 180
 set ::env(_H_PITCH) 180
 set ::env(_V_PDN_OFFSET) 0
 set ::env(_H_PDN_OFFSET) 0
-set ::env(_SPACING) 1.6
+set ::env(_SPACING) 1.7
 set ::env(_WIDTH) 3
 
 set power_domains [list {vccd1 vssd1}]
@@ -72,6 +72,9 @@ detailed_placement
 run_cts
 
 run_routing
+
+write_powered_verilog -power vccd1 -ground vssd1
+set_netlist $::env(lvs_result_file_tag).powered.v
 
 run_magic
 run_magic_spice_export
