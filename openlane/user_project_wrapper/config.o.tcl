@@ -64,12 +64,12 @@ set ::env(VERILOG_FILES) "\
     $script_dir/../../rtl/AHB_sys_0/*.v
     $script_dir/../../rtl/NfiVe32.v
     $script_dir/../../rtl/DFFRFile.v
-    $script_dir/../../rtl/IPs/RAM_4Kx32.v
 	$script_dir/../../rtl/soc_core.v
     $script_dir/../../rtl/user_project_wrapper.v"
 
 set ::env(VERILOG_FILES_BLACKBOX) "\
-	$script_dir/../../rtl/IPs/DFFRAM.v"
+	$script_dir/../../rtl/IPs/DFFRAM.v
+	$script_dir/../../rtl/IPs/RAM_3Kx32.v"
 
 set ::env(EXTRA_LEFS) "\
 	$script_dir/../../lef/RAM_3Kx32.lef"

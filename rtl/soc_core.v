@@ -182,7 +182,7 @@ module soc_core (
 	);
 
 
-	RAM_3Kx32 RAM (
+	RAM_4Kx32 RAM (
 		.CLK(HCLK),
 		.WE(SRAMWEN_Sys0_S1),
 		.EN(SRAMCS0_Sys0_S1),

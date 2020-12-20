@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
+//`define     STANDALONE
 /*
     Hand-crafted 32 lines x 16 bytes Direct Mapped Cache
     It can operate @ 200MHz clock!
@@ -49,14 +50,18 @@ module LINE16 (
 
     wire [7:0] CLK_buf;
 
-    sky130_fd_sc_hd__clkbuf_4 CLKBUF[7:0] ( 
-                .X(CLK_buf), 
-                .A(CLK)
-            );
+    wire SELW_buf, SELR_buf;
+
+    sky130_fd_sc_hd__clkbuf_4 CLKBUF[7:0] ( .X(CLK_buf), .A(CLK) );
+
+    sky130_fd_sc_hd__clkbuf_4 SELWBUF( .X(SELW_buf), .A(SELW) );
+    sky130_fd_sc_hd__clkbuf_4 SELRBUF ( .X(SELR_buf), .A(SELR) );
+
+    
     generate 
         genvar i;
         for(i=0; i<8; i=i+1)
-            HWORD HW ( .CLK(CLK_buf[i]), .WE(WE), .SELW(SELW), .SELR(SELR), .Di(Di[i*16+15:i*16]), .Do(Do[i*16+15:i*16]) );
+            HWORD HW ( .CLK(CLK_buf[i]), .WE(WE), .SELW(SELW_buf), .SELR(SELR_buf), .Di(Di[i*16+15:i*16]), .Do(Do[i*16+15:i*16]) );
     endgenerate
 
 endmodule 
@@ -105,7 +110,8 @@ module DEC5x32_DMC (
     endgenerate
 
 endmodule
-/*
+
+`ifdef STANDALONE
 module MUX4x1_32(
     input   [31:0]      A0, A1, A2, A3,
     input   [1:0]       S,
@@ -113,7 +119,8 @@ module MUX4x1_32(
 );
     sky130_fd_sc_hd__mux4_1 MUX[31:0] (.A0(A0), .A1(A1), .A2(A2), .A3(A3), .S0(S[0]), .S1(S[1]), .X(X) );
 endmodule
-*/
+`endif
+
 module OVERHEAD(
     input CLK,
     input RSTn,
@@ -130,7 +137,7 @@ module OVERHEAD(
     wire we_wire;
     wire[15:0] q_wire;
     
-    sky130_fd_sc_hd__inv_2 INV(.Y(SEL_B), .A(SELR));
+    sky130_fd_sc_hd__inv_8 INV(.Y(SEL_B), .A(SELR));
     sky130_fd_sc_hd__and2_4 CGAND( .A(SELW), .B(WE), .X(we_wire) );
     sky130_fd_sc_hd__dlclkp_1 CG( .CLK(CLK), .GCLK(GCLK), .GATE(we_wire) );
 
@@ -175,6 +182,8 @@ module DMC_32x16HC (
 
     wire [31:0] SELH, SEL;
 
+    wire [31:0] Do_pre;
+
     wire CLK_buf;
 
     wire hi;
@@ -208,12 +217,8 @@ module DMC_32x16HC (
 
     assign  hit =   c_valid & (c_tag == tag_h);
 
-    MUX4x1_32 MUX ( .A0(data[31:0]), .A1(data[63:32]), .A2(data[95:64] ), .A3(data[127:96]), .S(offset[3:2]), .X(Do) );
-/*
-    assign  Do  =   (offset[3:2] == 2'd0) ?  data[31:0] :
-                    (offset[3:2] == 2'd1) ?  data[63:32] :
-                    (offset[3:2] == 2'd2) ?  data[95:64] :
-                    data[127:96];
-*/
-endmodule
+    MUX4x1_32 MUX ( .A0(data[31:0]), .A1(data[63:32]), .A2(data[95:64] ), .A3(data[127:96]), .S(offset[3:2]), .X(Do_pre) );
 
+    sky130_fd_sc_hd__clkbuf_4 DOBUF[31:0] (.X(Do), .A(Do_pre));
+
+endmodule

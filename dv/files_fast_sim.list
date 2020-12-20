@@ -25,13 +25,14 @@
 ../rtl/IPs/APB_SPI.v
 ../rtl/IPs/APB_I2C.v
 ../dv/DFFRAM_beh.v
++define+HC_CACHE=1
 ../rtl/IPs/QSPI_XIP_CTRL.v
 ../rtl/IPs/AHBSRAM.v
 ../rtl/IPs/DFFRAM.v
 ../rtl/IPs/DFFRAMBB.v
 +define+USE_DFFRAM_BEH=1
-#../rtl/IPs/RAM_4Kx32.v
-../rtl/IPs/RAM_3Kx32.v
+../rtl/IPs/RAM_4Kx32.v
+#../rtl/IPs/RAM_3Kx32.v
 ../rtl/acc/AHB_SPM.v
 
 +define+USE_DFFRAM_BEH=1
