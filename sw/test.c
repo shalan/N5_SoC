@@ -64,7 +64,7 @@ int main(){
         uart_puts(0,"Failed!\n", 8);
     
     // External SPM Accelerator
-    uart_puts (0, "SPM Test: ", 9);
+    uart_puts (0, "SPM Test: ", 10);
     int factorial = fact(5);
     DELAY(100);
     if(factorial==120)
@@ -73,7 +73,7 @@ int main(){
         uart_puts(0,"Failed!\n", 8);
 
     // SPI
-    uart_puts (0, "SPI Test: ", 9);
+    uart_puts (0, "SPI Test: ", 10);
     M23LC_write_byte(0, 0, 0xA5);
     unsigned int spi_data = M23LC_read_byte(0, 0);
     DELAY(100);
@@ -82,17 +82,31 @@ int main(){
     else 
         uart_puts(0,"Failed!\n", 8);
 
+    // Timer
+    uart_puts (0, "TMR Test: ", 10);
+    tmr_init(0, 400, 10);
+    tmr_enable(0);
+    tmr_wait(0);
+    tmr_disable(0);
+    if(tmr_read(0) == 0)
+        uart_puts(0,"Passed!\n", 8);
+    else 
+        uart_puts(0,"Failed!\n", 8);
+
     // PWM
+    uart_puts (0, "PWM Test: ", 10);
+    tmr_init(0, 100, 10);       // 1usec
     pwm_init(0, 250, 99, 5);
  	pwm_enable(0);
     DELAY(300);
     pwm_disable(0); 
+    uart_puts(0,"Passed!\n", 8);
 
     // Some Delay
-    DELAY(100);
+    DELAY(400);
    
     // Done!
-    uart_puts(0, "Done!\n\n", 7);
+    uart_puts(0, "Done!\n", 5);
     return 0;
 }
 

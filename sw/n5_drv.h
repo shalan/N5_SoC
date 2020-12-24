@@ -26,3 +26,13 @@ int i2c_send(unsigned int , unsigned char , unsigned char );
 int pwm_init(unsigned int, unsigned int, unsigned int, unsigned int);
 int pwm_enable(unsigned int);
 int pwm_disable(unsigned int);
+
+/* Timer */
+int tmr_init(unsigned int, unsigned int , unsigned int);
+int tmr_enable(unsigned int);
+int tmr_disable(unsigned int);
+int tmr_wait(unsigned int);
+int tmr_ei(unsigned int);
+int tmr_di(unsigned int);
+int tmr_clrov(unsigned int);
+int tmr_read(unsigned n);
