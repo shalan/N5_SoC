@@ -42,6 +42,7 @@ set ::env(ROUTING_CORES) 16
 set ::env(PL_TARGET_DENSITY) 0.2
 
 set ::env(GLB_RT_ADJUSTMENT) 0.35
+set ::env(GLB_RT_MAXLAYER) 5
 
 # Need to fix a FastRoute bug for this to work, but it's good
 # for a sense of "isolation"
