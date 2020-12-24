@@ -13,3 +13,4 @@
 *.exe
 *.gtkw
 /OpenLANE/*
+runs*
