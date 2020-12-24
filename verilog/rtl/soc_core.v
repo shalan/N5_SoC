@@ -1,7 +1,6 @@
 
 `default_nettype none
 `timescale 1ns/1ns
-//`define		USE_DFFRAM_BEH
 
 module soc_core (
 	input HCLK, 

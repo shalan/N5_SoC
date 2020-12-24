@@ -2,7 +2,7 @@
 `default_nettype none
 
 // uncomment the following line to use the optimized cache (SKY130A only)
-`define HC_CACHE
+//`define NO_HC_CACHE
 
 /*
     AHB-Lite Quad I/O flash reader with 32x16 DM$
@@ -100,10 +100,10 @@ module QSPI_XIP_CTRL(
 
     assign c_A          = //((state==st_idle) || (state==st_wait)) ? HADDR[23:0] : 
                             last_HADDR[23:0];
-`ifdef HC_CACHE
-    DMC_32x16HC
-`else
+`ifdef NO_HC_CACHE
     DMC_32x16
+`else
+    DMC_32x16HC
 `endif
                 CACHE ( .clk(HCLK), .rst_n(HRESETn), 
                         .A(last_HADDR[23:0]), .A_h(HADDR[23:0]), .Do(c_datao), .hit(c_hit), 

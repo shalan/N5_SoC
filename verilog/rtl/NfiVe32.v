@@ -50,7 +50,8 @@
 `default_nettype none
 
 `define		USE_RF_MODULE
-`define		USE_RF_HC
+
+//`define		USE_RF_HC
 //`define		USE_ALU_HC
 
 //`define DBG
@@ -934,15 +935,7 @@ module NfiVe32 (
                             (instr_rdcsr)               ?   csr     :   alur;
 
 `ifdef USE_RF_MODULE
-`ifdef USE_RF_HC
-	DFFRFile RF (
-		.R1(rs1), .R2(rs2), .RW(rd),
-		.DW(rf_dw),
-		.D1(r1), .D2(r2),
-		.CLK(HCLK),
-		.WE(rf_wr&C3)
-	);
-`else
+`ifdef NO_HC_REGF
 	NfiVe32_RF RF (
 		.HCLK(HCLK),
 		.WR(rf_wr & C3),
@@ -952,6 +945,14 @@ module NfiVe32 (
 		.DW(rf_dw),
 		.DA(r1),
 		.DB(r2)
+	);
+`else
+	DFFRFile RF (
+		.R1(rs1), .R2(rs2), .RW(rd),
+		.DW(rf_dw),
+		.D1(r1), .D2(r2),
+		.CLK(HCLK),
+		.WE(rf_wr&C3)
 	);
 `endif
 `ifdef DBG
