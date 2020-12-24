@@ -223,3 +223,87 @@ int pwm_disable(unsigned int n){
         *PWM0_CTRL = 0x0;
     return 0;
 }
+
+/* Timers */
+int tmr_init(unsigned int n, unsigned int pre, unsigned int cmp){
+  if(n>1) return -1;
+    if(n==0) {
+        *TMR0_CMP = cmp;
+        *TMR0_PRE = pre;
+        *TMR0_OVCLR = 1;
+        *TMR0_OVCLR = 0;        
+    } else {
+        *TMR1_CMP = cmp;
+        *TMR1_PRE = pre;
+        *TMR1_OVCLR = 1;
+        *TMR1_OVCLR = 0;        
+    }
+    return 0;
+}
+
+int tmr_enable(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        *TMR0_EN = 0x1;
+    else
+        *TMR1_EN = 0x1;
+    return 0;
+}
+
+int tmr_disable(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        *TMR0_EN = 0x0;
+    else
+        *TMR1_EN = 0x0;
+    return 0;
+}
+
+int tmr_wait(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        while(*TMR0_STATUS == 0);
+    else
+        while(*TMR1_STATUS == 0);
+    return 0;
+}
+
+int tmr_ei(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        *TMR0_IM == 1;
+    else
+        *TMR1_IM == 1;
+    return 0;
+}
+
+int tmr_di(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        *TMR0_IM == 0;
+    else
+        *TMR1_IM == 0;
+    return 0;
+}
+
+int tmr_clrov(unsigned int n){
+    if(n>1) return -1;
+    if(n==0)  {
+        *TMR0_OVCLR == 1;
+        *TMR0_OVCLR == 0;
+    }
+    else{
+        *TMR1_OVCLR == 1;
+        *TMR1_OVCLR == 0;
+    }
+    return 0;
+}
+
+int tmr_read(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        return *TMR0;
+    else
+        return *TMR1;
+    return 0;
+}

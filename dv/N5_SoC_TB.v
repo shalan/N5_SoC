@@ -1,7 +1,7 @@
 `timescale 1ns/1ns
 
 `define   TEST_FILE   "../sw/test.hex" 
-`define   SIM_TIME    500_000
+`define   SIM_TIME    600_000
 `define   SIM_LEVEL   0
 
 module N5_SoC_TB;
