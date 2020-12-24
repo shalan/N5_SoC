@@ -29,10 +29,16 @@ place_io_ol
 
 apply_def_template
 
-set margin_x 400
-set margin_y 230
-
-add_macro_placement core.RAM  $margin_x $margin_y N
+# 3 x 4KB DFFRAM macros
+add_macro_placement _5238_  210 150 N
+add_macro_placement _5239_  1600 150 N
+add_macro_placement _5240_  210 1950 S
+# QSPI Cache Macro
+add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 3000 N
+# The NfiVe32 CPU
+add_macro_placement core.CPU 2100 1800 N
+# The APB subsystem including the peripherals
+add_macro_placement core.ahb_sys_0_uut.apb_sys_inst_0  1500 2650 N
 
 manual_macro_placement f
 
@@ -49,13 +55,15 @@ set ::env(_H_PDN_OFFSET) 0
 set ::env(_SPACING) 1.7
 set ::env(_WIDTH) 3
 
-set power_domains [list {vccd1 vssd1}]
+set power_domains [list {vccd1 vssd1} {vccd2 vssd2} {vdda1 vssa1} {vdda2 vssa2}]
 
+set ::env(CONNECT_GRIDS) 1
 foreach domain $power_domains {
 	set ::env(_VDD_NET_NAME) [lindex $domain 0]
 	set ::env(_GND_NET_NAME) [lindex $domain 1]
 	gen_pdn
 
+	set ::env(CONNECT_GRIDS) 0
 	set ::env(_V_OFFSET) \
 	[expr $::env(_V_OFFSET) + 2*($::env(_WIDTH)+$::env(_SPACING))]
 	set ::env(_H_OFFSET) \
@@ -63,7 +71,6 @@ foreach domain $power_domains {
 	set ::env(_V_PDN_OFFSET) [expr $::env(_V_PDN_OFFSET)+6*$::env(_WIDTH)]
 	set ::env(_H_PDN_OFFSET) [expr $::env(_H_PDN_OFFSET)+6*$::env(_WIDTH)]
 }
-
 
 global_placement_or
 

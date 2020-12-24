@@ -36,8 +36,7 @@ set ::env(CLOCK_PORT) "wb_clk_i"
 set ::env(CLOCK_NET) "wb_clk_i"
 
 set ::env(CLOCK_PERIOD) "10"
-
-set ::env(ROUTING_CORES) 12
+set ::env(ROUTING_CORES) 16
 
 #0.185
 set ::env(PL_TARGET_DENSITY) 0.2
@@ -48,33 +47,20 @@ set ::env(MAGIC_ZEROIZE_ORIGIN) 0
 set ::env(MAGIC_WRITE_FULL_LEF) 0
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1
 
-#    $script_dir/../../verilog/rtl/IPs/DMC_32x16HC.v
 set ::env(VERILOG_FILES) "\
-    $script_dir/../../verilog/rtl/acc/AHB_SPM.v
-    $script_dir/../../verilog/rtl/IPs/AHBSRAM.v
-    $script_dir/../../verilog/rtl/IPs/DFFRAMBB.v
-    $script_dir/../../verilog/rtl/IPs/GPIO.v
-    $script_dir/../../verilog/rtl/IPs/APB_I2C.v
-    $script_dir/../../verilog/rtl/IPs/APB_SPI.v
-    $script_dir/../../verilog/rtl/IPs/APB_UART.v
-    $script_dir/../../verilog/rtl/IPs/i2c_master.v
-    $script_dir/../../verilog/rtl/IPs/PWM32.v
-    $script_dir/../../verilog/rtl/IPs/QSPI_XIP_CTRL.v
-    $script_dir/../../verilog/rtl/IPs/spi_master.v
-    $script_dir/../../verilog/rtl/IPs/TIMER32.v
-    $script_dir/../../verilog/rtl/IPs/WDT32.v
-    $script_dir/../../verilog/rtl/DFFRFile.v
-    $script_dir/../../verilog/rtl/IPs/RAM_3Kx32.v
-       $script_dir/../../verilog/rtl/AHB_sys_0/*.v
-	$script_dir/../../verilog/rtl/soc_core.v
-	
-    $script_dir/../../verilog/rtl/user_project_wrapper.v"
+    $script_dir/../../rtl/acc/AHB_SPM.v
+    $script_dir/../../rtl/IPs/AHBSRAM.v
+    $script_dir/../../rtl/IPs/GPIO.v
+    $script_dir/../../rtl/IPs/QSPI_XIP_CTRL.v
+    $script_dir/../../rtl/AHB_sys_0/*.v
+	$script_dir/../../rtl/soc_core.v
+    $script_dir/../../rtl/user_project_wrapper.v"
 
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$script_dir/../../verilog/rtl/IPs/DFFRAM.v
 	$script_dir/../../verilog/rtl/IPs/DMC_32x16HC.v
 	$script_dir/../../verilog/rtl/AHB_sys_0/APB_sys_0/*.v
-	    $script_dir/../../verilog/rtl/NfiVe32.v"
+	$script_dir/../../verilog/rtl/NfiVe32.v"
 
 set ::env(EXTRA_LEFS) "\
 	$script_dir/../../lef/DFFRAM.lef
@@ -87,9 +73,5 @@ set ::env(EXTRA_GDS_FILES) "\
  	$script_dir/../../gds/DMC_32x16HC.gds
  	$script_dir/../../gds/NfiVe32_SYS.gds
 	$script_dir/../../gds/apb_sys_0.gds
-	"
  	
 set ::env(DIODE_INSERTION_STRATEGY) "4"
-
-set ::env(GLB_RT_ADJUSTMENT) 0.25
-
