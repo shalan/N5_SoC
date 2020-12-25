@@ -10,7 +10,8 @@ set ::env(LVS_INSERT_POWER_PINS) 		1
 
 # Change if needed
 set ::env(VERILOG_FILES) "\
-	$script_dir/../../verilog/rtl/DMC_32x16HC.v"
+        $script_dir/../../verilog/rtl/IPs/DFFRAMBB.v
+	$script_dir/../../verilog/rtl/IPs/DMC_32x16HC.v"
 	
 # set ::env(SYNTH_TOP_LEVEL) 1
 set ::env(SYNTH_READ_BLACKBOX_LIB) 		1

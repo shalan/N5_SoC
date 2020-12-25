@@ -34,7 +34,7 @@ add_macro_placement _5238_  210 150 N
 add_macro_placement _5239_  1600 150 N
 add_macro_placement _5240_  210 1950 S
 # QSPI Cache Macro
-add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 3000 N
+add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 2650 W
 # The NfiVe32 CPU
 add_macro_placement core.CPU 2100 1800 N
 # The APB subsystem including the peripherals

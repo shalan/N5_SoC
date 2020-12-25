@@ -25,12 +25,15 @@ set ::env(FP_PIN_ORDER_CFG) 			$::env(DESIGN_DIR)/pin_order.cfg
 set ::env(FP_SIZING) 					absolute
 set ::env(DIE_AREA) 					"0 0 600 500"
 set ::env(GLB_RT_OBS) 					"met5 $::env(DIE_AREA)"
-set ::env(GLB_RT_ADJUSTMENT) 			0.30
+set ::env(GLB_RT_ADJUSTMENT) 			0.32
 
 set ::env(PDN_CFG) 						$script_dir/pdn.tcl
 set ::env(GLB_RT_MAXLAYER) 				5
 
 set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 	1
-set ::env(PL_TARGET_DENSITY) 			0.62
+set ::env(PSN_ENABLE_RESIZING)                    0
+set ::env(PSN_ENABLE_PIN_SWAP)                   0
+set ::env(PL_RESIZER_OVERBUFFER)                0
+set ::env(PL_TARGET_DENSITY) 			0.58
 set ::env(CELL_PAD) 					0
 set ::env(DIODE_INSERTION_STRATEGY) 	4
