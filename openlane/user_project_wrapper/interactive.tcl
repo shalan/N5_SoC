@@ -30,9 +30,9 @@ place_io_ol
 apply_def_template
 
 # 3 x 4KB DFFRAM macros
-add_macro_placement _5238_  210 150 N
-add_macro_placement _5239_  1600 150 N
-add_macro_placement _5240_  210 1950 S
+add_macro_placement _5236_  210 150 N
+add_macro_placement _5237_  1600 150 N
+add_macro_placement _5238_  210 1950 S
 # QSPI Cache Macro
 add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 2650 W
 # The NfiVe32 CPU
