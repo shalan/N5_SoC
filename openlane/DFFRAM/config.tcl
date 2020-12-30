@@ -7,7 +7,7 @@ set ::env(DESIGN_NAME) 						DFFRAM
 
 set ::env(DESIGN_IS_CORE) 					0
 set ::env(LVS_INSERT_POWER_PINS) 			1
-set ::env(FP_PDN_CORE_RING)					1
+#set ::env(FP_PDN_CORE_RING)					1
 
 # Change if needed
 set ::env(VERILOG_FILES) "\
@@ -34,3 +34,6 @@ set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 		0
 set ::env(PL_TARGET_DENSITY) 				0.82
 set ::env(CELL_PAD) 						0
 set ::env(DIODE_INSERTION_STRATEGY) 		4
+
+# PDN
+set ::env(FP_PDN_VPITCH) 120
