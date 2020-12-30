@@ -36,12 +36,13 @@ set ::env(CLOCK_PORT) "wb_clk_i"
 set ::env(CLOCK_NET) "wb_clk_i"
 
 set ::env(CLOCK_PERIOD) "10"
-set ::env(ROUTING_CORES) 16
+set ::env(ROUTING_CORES) 12
 
 #0.185
-set ::env(PL_TARGET_DENSITY) 0.2
-set ::env(GLB_RT_ADJUSTMENT) 0.35
+set ::env(PL_TARGET_DENSITY) 0.35
+set ::env(GLB_RT_ADJUSTMENT) 0.40
 set ::env(GLB_RT_MAXLAYER) 5
+#set ::env(GLB_RT_TILES) 10
 
 set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 1
 set ::env(PSN_ENABLE_PIN_SWAP) 0
@@ -60,30 +61,30 @@ set ::env(VERILOG_FILES) "\
     $script_dir/../../verilog/rtl/acc/AHB_SPM.v
     $script_dir/../../verilog/rtl/IPs/AHBSRAM.v
     $script_dir/../../verilog/rtl/IPs/GPIO.v
-        $script_dir/../../verilog/rtl/IPs/RAM_3Kx32.v
+    $script_dir/../../verilog/rtl/IPs/RAM_4Kx32.v
     $script_dir/../../verilog/rtl/IPs/DFFRAMBB.v
-
     $script_dir/../../verilog/rtl/IPs/QSPI_XIP_CTRL.v
     $script_dir/../../verilog/rtl/AHB_sys_0/*.v
+	
 	$script_dir/../../verilog/rtl/soc_core.v
     $script_dir/../../verilog/rtl/user_project_wrapper.v"
 
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$script_dir/../../verilog/rtl/IPs/DFFRAM.v
 	$script_dir/../../verilog/rtl/IPs/DMC_32x16HC.v
-	$script_dir/../../verilog/rtl/AHB_sys_0/APB_sys_0/*.v
-	$script_dir/../../verilog/rtl/NfiVe32.v"
+	$script_dir/../../verilog/rtl/NfiVe32.v
+	$script_dir/../../verilog/rtl/AHB_sys_0/APB_sys_0/*.v"
 
 set ::env(EXTRA_LEFS) "\
-        $script_dir/../../lef/apb_sys_0.lef
-        $script_dir/../../lef/NfiVe32_SYS.lef
+    $script_dir/../../lef/apb_sys_0.lef
 	$script_dir/../../lef/DFFRAM.lef
+	$script_dir/../../lef/NfiVe32_SYS.lef
 	$script_dir/../../lef/DMC_32x16HC.lef"
 
 set ::env(EXTRA_GDS_FILES) "\
 	$script_dir/../../gds/apb_sys_0.gds
+	$script_dir/../../gds/DFFRAM.gds
 	$script_dir/../../gds/NfiVe32_SYS.gds
- 	$script_dir/../../gds/DFFRAM.gds
  	$script_dir/../../gds/DMC_32x16HC.gds"
  	
 set ::env(DIODE_INSERTION_STRATEGY) "4"

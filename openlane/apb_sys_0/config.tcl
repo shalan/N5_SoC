@@ -23,7 +23,7 @@ set ::env(CLOCK_TREE_SYNTH) 		1
 set ::env(FP_PIN_ORDER_CFG) 		$::env(DESIGN_DIR)/pin_order.cfg
 
 set ::env(FP_SIZING) 				absolute
-set ::env(DIE_AREA) 				"0 0 450 700"
+set ::env(DIE_AREA) 				"0 0 700 400"
 set ::env(GLB_RT_OBS) 				"met5 $::env(DIE_AREA)"
 
 set ::env(PDN_CFG) 					$script_dir/pdn.tcl
@@ -31,7 +31,7 @@ set ::env(GLB_RT_MAXLAYER) 			5
 set ::env(GLB_RT_ADJUSTMENT) 		0.30
 
 set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 	1
-set ::env(PL_TARGET_DENSITY) 			0.65
+set ::env(PL_TARGET_DENSITY) 			0.72
 set ::env(CELL_PAD) 					0
 set ::env(DIODE_INSERTION_STRATEGY) 	4
 

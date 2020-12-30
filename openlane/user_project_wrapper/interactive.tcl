@@ -30,26 +30,31 @@ place_io_ol
 apply_def_template
 
 # 3 x 4KB DFFRAM macros
-add_macro_placement _5236_  210 150 N
-add_macro_placement _5237_  1600 150 N
-add_macro_placement _5238_  210 1950 S
+add_macro_placement _6019_  160 130 N
+add_macro_placement _6020_  1539 130 N
+add_macro_placement _6021_  160 2130 S
+add_macro_placement _6022_  1540 2130 S
 # QSPI Cache Macro
-add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 2650 W
-# The NfiVe32 CPU
-add_macro_placement core.CPU 2100 1800 N
+add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 1550 N
 # The APB subsystem including the peripherals
-add_macro_placement core.ahb_sys_0_uut.apb_sys_inst_0  1500 2650 N
-
+add_macro_placement core.ahb_sys_0_uut.apb_sys_inst_0  160 1550 N
+# The CPU
+add_macro_placement core.CPU  1140 1625 N
+ 
+set ::env(GLB_RT_OBS) 						"met5 160 130 1250 1300,\
+											met5 1540 130 1250 1300, 
+											met5 160 2130 1250 1300, 
+											met5 1540 2130 1250 1300"
 manual_macro_placement f
 
 tap_decap_or
 
 set ::env(_VDD_NET_NAME) vccd1
 set ::env(_GND_NET_NAME) vssd1
-set ::env(_V_OFFSET) 14
+set ::env(_V_OFFSET) 15
 set ::env(_H_OFFSET) $::env(_V_OFFSET)
-set ::env(_V_PITCH) 180
-set ::env(_H_PITCH) 180
+set ::env(_V_PITCH) 120
+set ::env(_H_PITCH) 120
 set ::env(_V_PDN_OFFSET) 0
 set ::env(_H_PDN_OFFSET) 0
 set ::env(_SPACING) 1.7
