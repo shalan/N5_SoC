@@ -30,10 +30,10 @@ place_io_ol
 apply_def_template
 
 # 3 x 4KB DFFRAM macros
-add_macro_placement _6019_  160 130 N
-add_macro_placement _6020_  1539 130 N
-add_macro_placement _6021_  160 2130 S
-add_macro_placement _6022_  1540 2130 S
+add_macro_placement _5172_  160 130 N
+add_macro_placement _5173_  1539 130 N
+add_macro_placement _5174_  160 2130 S
+add_macro_placement _5175_  1540 2130 S
 # QSPI Cache Macro
 add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 1550 N
 # The APB subsystem including the peripherals
