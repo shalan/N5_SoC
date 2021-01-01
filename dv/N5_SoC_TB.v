@@ -67,6 +67,10 @@ module N5_SoC_TB;
 
     /* N5_SoC Core */
     soc_core MUV (
+    `ifdef USE_POWER_PINS
+        .VPWR(1'b1),
+        .VGND(1'b0),
+    `endif
         .HCLK(HCLK),
         .HRESETn(HRESETn),
 
@@ -174,13 +178,14 @@ module N5_SoC_TB;
 
     // Terminate the smulation with ebreak instruction.
     // Calculate the CPI using the CSRs
-    always @ (posedge HCLK) 
-        if(MUV.CPU.N5.instr_ebreak) begin
-        //$display("CPI=%d.%0d", MUV.N5.CSR_CYCLE/MUV.N5.CSR_INSTRET,(MUV.N5.CSR_CYCLE%MUV.N5.CSR_INSTRET)*10/MUV.N5.CSR_INSTRET );
-        $finish;
-        end
-
-
+    `ifndef GL
+        always @ (posedge HCLK) 
+            if(MUV.CPU.N5.instr_ebreak) begin
+            //$display("CPI=%d.%0d", MUV.N5.CSR_CYCLE/MUV.N5.CSR_INSTRET,(MUV.N5.CSR_CYCLE%MUV.N5.CSR_INSTRET)*10/MUV.N5.CSR_INSTRET );
+            $finish;
+            end
+    `endif
+    
     // Monitor Flash memory reads
     //always @(posedge HCLK)
     //    if(MUV.N5.HTRANS[1] & MUV.N5.HREADY & MUV.N5.HSEL_FLASH)
