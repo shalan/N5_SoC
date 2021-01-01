@@ -258,6 +258,10 @@ module AHBlite_sys_0(
 
     //SubSystem Instantiation #0 
     apb_sys_0 apb_sys_inst_0(
+	`ifdef USE_POWER_PINS
+		.VPWR(VPWR),
+		.VGND(VGND),
+	`endif
         // Global signals 
         .HCLK(HCLK),
         .HRESETn(HRESETn),
