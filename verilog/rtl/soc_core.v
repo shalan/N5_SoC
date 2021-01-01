@@ -105,7 +105,10 @@ module soc_core (
 
 	//AHBlite_SYS0 instantiation
 	AHBlite_sys_0 ahb_sys_0_uut(
-
+	`ifdef USE_POWER_PINS
+		.VPWR(VPWR),
+		.VGND(VGND),
+	`endif
 		.HCLK(HCLK),
 		.HRESETn(HRESETn),
          
@@ -200,6 +203,10 @@ module soc_core (
 
 	// Instantiation of NfiVe32
 	NfiVe32_SYS CPU (
+`ifdef USE_POWER_PINS
+	.VPWR(VPWR),
+	.VGND(VGND),
+`endif
 		.HCLK(HCLK),
 		.HRESETn(HRESETn),
 

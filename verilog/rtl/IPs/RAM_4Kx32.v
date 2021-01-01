@@ -2,6 +2,10 @@
 `default_nettype none
 
 module RAM_4Kx32 (
+`ifdef USE_POWER_PINS
+    VPWR,
+    VGND,
+`endif
     CLK,
     WE,
     EN,
@@ -9,6 +13,12 @@ module RAM_4Kx32 (
     Do,
     A
 );
+
+`ifdef USE_POWER_PINS
+	input VPWR;
+	input VGND;
+`endif
+
     input           CLK;
     input   [3:0]   WE;
     input           EN;
@@ -42,11 +52,35 @@ module RAM_4Kx32 (
         
     endgenerate 
     
-    sky130_fd_sc_hd__clkbuf_8 ABUF[11:10] (.X(A_buf), .A(A[11:10]));
+    sky130_fd_sc_hd__clkbuf_8 ABUF[11:10] (
+    `ifdef USE_POWER_PINS
+        .VPWR(VPWR),
+        .VGND(VGND),
+        .VPB(VPWR),
+        .VNB(VGND),
+    `endif
+        .X(A_buf), .A(A[11:10]));
 
-    MUX4x1_32 MUX ( .A0(_Do_[0]), .A1(_Do_[1]), .A2(_Do_[2]), .A3(_Do_[3]), .S(A_buf), .X(Do_pre) );
-    DEC2x4 DEC ( .EN(EN), .A(A[11:10]), .SEL(_EN_) );
+    MUX4x1_32 MUX ( 
+    `ifdef USE_POWER_PINS
+        .VPWR(VPWR),
+        .VGND(VGND),
+    `endif
+        .A0(_Do_[0]), .A1(_Do_[1]), .A2(_Do_[2]), .A3(_Do_[3]), .S(A_buf), .X(Do_pre) );
+    DEC2x4 DEC (
+    `ifdef USE_POWER_PINS
+        .VPWR(VPWR),
+        .VGND(VGND),
+    `endif
+         .EN(EN), .A(A[11:10]), .SEL(_EN_) );
 
-    sky130_fd_sc_hd__clkbuf_4 DOBUF[31:0] (.X(Do), .A(Do_pre));
+    sky130_fd_sc_hd__clkbuf_4 DOBUF[31:0] (
+    `ifdef USE_POWER_PINS
+        .VPWR(VPWR),
+        .VGND(VGND),
+        .VPB(VPWR),
+        .VNB(VGND),
+    `endif
+        .X(Do), .A(Do_pre));
     
 endmodule
