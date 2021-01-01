@@ -154,6 +154,7 @@ for i in main_layout.each_cell():
 
 # Load in the gds to merge
 print("[INFO] Merging GDS files...")
+in_gds = "gds/DFFRAM.gds gds/DMC_32x16HC.gds gds/NfiVe32_SYS.gds gds/apb_sys_0.gds"
 for gds in in_gds.split():
   print("\t{0}".format(gds))
   main_layout.read(gds)

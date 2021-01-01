@@ -29,7 +29,7 @@ module RAM_4Kx32 (
 `ifdef USE_DFFRAM_BEH
 	DFFRAM_beh 
 `else
-	DFFRAM
+	DFFRAM_4K
 `endif
             #(.COLS(4)) RAM (
                 .CLK(CLK),

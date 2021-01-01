@@ -4,9 +4,9 @@ export KLAYOUT_SKY130_TECH=$(pwd)/klayout/SKY130.lyt
 : ${2?"Usage: $0 input.def design_name prereq1.gds prereq2.gds ...."}
 : ${3?"Usage: $0 input.def design_name prereq1.gds prereq2.gds ...."}
 
-xvfb-run -a klayout -z -rd design_name=$2 \
+xvfb-run klayout -z -rd design_name=$2 \
         -rd in_def=$1 \
-        -rd in_gds="$3" \
+        -rd in_gds="${@:3}" \
         -rd config_file="" \
         -rd seal_gds="" \
         -rd out_gds=$(dirname $1)/$2.gds \
