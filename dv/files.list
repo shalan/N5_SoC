@@ -29,8 +29,8 @@
 ../verilog/rtl/IPs/AHBSRAM.v
 ../verilog/rtl/IPs/DFFRAM.v
 ../verilog/rtl/IPs/DFFRAMBB.v
-#../verilog/rtl/IPs/RAM_4Kx32.v
-../verilog/rtl/IPs/RAM_3Kx32.v
+../verilog/rtl/IPs/RAM_4Kx32.v
+#../verilog/rtl/IPs/RAM_3Kx32.v
 ../verilog/rtl/acc/AHB_SPM.v
 
 ../verilog/rtl/soc_core.v

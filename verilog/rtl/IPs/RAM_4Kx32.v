@@ -26,7 +26,7 @@ module RAM_4Kx32 (
         genvar gi;
         for(gi=0; gi<BLOCKS; gi=gi+1) 
 
-`ifdef USE_DFFRAM_BEH
+`ifdef NO_DFFRAM
 	DFFRAM_beh 
 `else
 	DFFRAM

@@ -32,8 +32,8 @@
 ../verilog/rtl/IPs/QSPI_XIP_CTRL.v
 ../verilog/rtl/IPs/DMC_32x16HC.v
 +define+NO_DFFRAM=1
-#../verilog/rtl/IPs/RAM_4Kx32.v
-../verilog/rtl/IPs/RAM_3Kx32.v
+../verilog/rtl/IPs/RAM_4Kx32.v
+#../verilog/rtl/IPs/RAM_3Kx32.v
 
 ../verilog/rtl/DFFRFile.v 
 +define+NO_HC_REGF=1
