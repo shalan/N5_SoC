@@ -67,6 +67,10 @@ endmodule
 
 module DFFRAM_4K #( parameter COLS=4)
 (
+`ifdef USE_POWER_PINS
+	VPWR,
+	VGND,
+`endif
     CLK,
     WE,
     EN,
@@ -74,6 +78,11 @@ module DFFRAM_4K #( parameter COLS=4)
     Do,
     A
 );
+
+`ifdef USE_POWER_PINS
+	input VPWR;
+	input VGND;
+`endif
 
     input           CLK;
     input   [3:0]   WE;
