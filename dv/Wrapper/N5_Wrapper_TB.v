@@ -76,7 +76,7 @@ module N5_Wrapper_TB;
 
     assign io_in[17:14] = fdi;
     assign fdo = io_out[17:14];
-    assign fdoe = io_oeb[17];
+    assign fdoe = ~io_oeb[17];
     assign fsclk = io_out[18];
     assign fcen = io_out[19];
 
