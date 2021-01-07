@@ -87,8 +87,8 @@ module N5_Wrapper_TB;
     assign RsTx_Sys0_SS0_S1 = io_out[23];
 
     assign io_in[24] = MSI_Sys0_SS0_S2;
-    assign MSO_Sys0_SS0_S2 = io_out[25];
-    assign SCLK_Sys0_SS0_S2 = io_out[26];
+    assign MSO_Sys0_SS0_S2  = io_out[25];
+    assign SSn_Sys0_SS0_S2  = io_out[26];
     assign SCLK_Sys0_SS0_S2 = io_out[27];
 
     assign io_in[28] = MSI_Sys0_SS0_S3;
