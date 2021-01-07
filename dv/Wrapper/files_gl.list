@@ -4,6 +4,7 @@
 /pdks/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v 
 /pdks/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
 
++define+MPRJ_IO_PADS=38
 
 ../../verilog/gl/DFFRAM_4K.v
 ../../verilog/gl/DMC_32x16HC.v

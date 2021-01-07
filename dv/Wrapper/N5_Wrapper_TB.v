@@ -133,7 +133,7 @@ module N5_Wrapper_TB;
             .vccd1(1'b1),	// User area 1 1.8V supply
             .vccd2(),	// User area 2 1.8v supply
             .vssd1(1'b0),	// User area 1 digital ground
-            .vssd2()
+            .vssd2(),
         `endif
 
         .wb_clk_i(HCLK),
