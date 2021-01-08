@@ -221,7 +221,8 @@ module AHBlite_sys_0(
 		
 		// Master Interface
 		.HADDR(HADDR),
-		.HWDATA(HWDATA), 
+		.HWDATA(HWDATA),
+		.HTRANS(HTRANS), 
 		.HREADY(HREADY),
 		.HRDATA(HRDATA),
 		
