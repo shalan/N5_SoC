@@ -10,8 +10,6 @@ test.vvp: test.hex files.list
 test_fast.vvp: test.hex files_fast_sim.list
 	iverilog -o test_fast.vvp -D TEST_FIL="../../sw/test.hex" -c files_fast_sim.list
 
-test_ys.vvp: test.hex files_ys.list
-	iverilog -o test_ys.vvp -D TEST_FIL="../../sw/test.hex" -c files_ys.list
 
 test_gl.vvp: test.hex files_gl.list
 	iverilog -o test_gl.vvp -D TEST_FIL="../../sw/test.hex" -c files_gl.list
@@ -21,9 +19,6 @@ sim: test.vvp
 
 sim_fast: test_fast.vvp 
 	./test_fast.vvp
-
-sim_ys: test_ys.vvp 
-	./test_ys.vvp
 
 sim_gl: test_gl.vvp 
 	./test_gl.vvp

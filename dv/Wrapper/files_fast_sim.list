@@ -1,7 +1,7 @@
 +define+FUNCTIONAL=1
 +define+UNIT_DELAY=#1
-/pdks/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v 
-/pdks/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
+/home/cse-p07-2179-gaa/work/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v
+/home/cse-p07-2179-gaa/work/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
 
 ../../dv/DFFRAM_beh.v
 
