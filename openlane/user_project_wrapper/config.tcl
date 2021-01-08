@@ -38,6 +38,8 @@ set ::env(CLOCK_NET) "wb_clk_i"
 set ::env(CLOCK_PERIOD) "10"
 set ::env(ROUTING_CORES) 12
 
+set ::env(SYNTH_STRATEGY) 3
+
 #0.185
 set ::env(PL_TARGET_DENSITY) 0.35
 set ::env(GLB_RT_ADJUSTMENT) 0.40

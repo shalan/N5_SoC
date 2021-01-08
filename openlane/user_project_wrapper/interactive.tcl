@@ -26,10 +26,10 @@ init_floorplan
 place_io_ol
 
 # 3 x 4KB DFFRAM macros
-add_macro_placement _5172_  160 120 N
-add_macro_placement _5173_  1559 120 N
-add_macro_placement _5174_  160 2130 S
-add_macro_placement _5175_  1540 2130 S
+add_macro_placement _5504_  160 120 N
+add_macro_placement _5505_  1559 120 N
+add_macro_placement _5506_  160 2130 S
+add_macro_placement _5507_  1540 2130 S
 # QSPI Cache Macro
 add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 1580 N
 # The APB subsystem including the peripherals
