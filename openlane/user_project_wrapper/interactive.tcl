@@ -25,19 +25,15 @@ init_floorplan
 
 place_io_ol
 
-# set ::env(FP_DEF_TEMPLATE) $script_dir/../../def/user_project_wrapper_empty.def
-
-apply_def_template
-
 # 3 x 4KB DFFRAM macros
-add_macro_placement _5172_  160 130 N
-add_macro_placement _5173_  1539 130 N
-add_macro_placement _5174_  160 2130 S
-add_macro_placement _5175_  1540 2130 S
+add_macro_placement _5504_  160 120 N
+add_macro_placement _5505_  1559 120 N
+add_macro_placement _5506_  160 2130 S
+add_macro_placement _5507_  1540 2130 S
 # QSPI Cache Macro
-add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 1550 N
+add_macro_placement core.ahb_sys_0_uut.S0.CACHE 2150 1580 N
 # The APB subsystem including the peripherals
-add_macro_placement core.ahb_sys_0_uut.apb_sys_inst_0  160 1550 N
+add_macro_placement core.ahb_sys_0_uut.apb_sys_inst_0  160 1580 N
 # The CPU
 add_macro_placement core.CPU  1140 1625 N
  
