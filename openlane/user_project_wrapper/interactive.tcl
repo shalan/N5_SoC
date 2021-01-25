@@ -47,7 +47,7 @@ tap_decap_or
 
 set ::env(_VDD_NET_NAME) vccd1
 set ::env(_GND_NET_NAME) vssd1
-set ::env(_V_OFFSET) 15
+set ::env(_V_OFFSET) 14
 set ::env(_H_OFFSET) $::env(_V_OFFSET)
 set ::env(_V_PITCH) 120
 set ::env(_H_PITCH) 120
