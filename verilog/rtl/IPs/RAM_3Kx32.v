@@ -19,12 +19,12 @@ module RAM_3Kx32 (
     input VGND;
 `endif
 
-    input           CLK;
-    input   [3:0]   WE;
-    input           EN;
-    input   [31:0]  Di;
-    output  [31:0]  Do;
-    input   [11:0]   A;
+    input  wire         CLK;
+    input  wire  [3:0]   WE;
+    input  wire          EN;
+    input  wire  [31:0]  Di;
+    output wire  [31:0]  Do;
+    input  wire  [11:0]   A;
 
     localparam BLOCKS=3;
     wire  [3:0]       _EN_ ;

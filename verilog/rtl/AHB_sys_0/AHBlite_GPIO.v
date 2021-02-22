@@ -24,15 +24,15 @@
 	
     // IP Interface
 	// WGPIODIN register/fields
-	input [15:0] WGPIODIN,
+	input wire [15:0] WGPIODIN,
 	// WGPIODOUT register/fields
-	output [15:0] WGPIODOUT,
+	output reg [15:0] WGPIODOUT,
 	// WGPIOPU register/fields
-	output [15:0] WGPIOPU,
+	output reg [15:0] WGPIOPU,
 	// WGPIOPD register/fields
-	output [15:0] WGPIOPD,
+	output reg [15:0] WGPIOPD,
 	// WGPIODIR register/fields
-	output [15:0] WGPIODIR
+	output reg [15:0] WGPIODIR
 );
     reg         IOSEL;
     reg [23:0]  IOADDR;
@@ -87,13 +87,7 @@
     assign  rd_enable = IOSEL & (~IOWRITE) & IOTRANS; 
     wire wr_enable = IOTRANS & IOWRITE & IOSEL;
     
-
-    reg [15:0] WGPIODOUT;
-    reg [15:0] WGPIOPU;
-    reg [15:0] WGPIOPD;
-    reg [15:0] WGPIODIR;
     reg [15:0] WGPIOIM;
-    wire[15:0] WGPIODIN;
 
 	// Register: WGPIODOUT
     wire WGPIODOUT_select = wr_enable & (IOADDR[23:2] == 22'h1);

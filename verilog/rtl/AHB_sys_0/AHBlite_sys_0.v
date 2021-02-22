@@ -7,17 +7,17 @@ module AHBlite_sys_0(
 		input VPWR,
 		input VGND,
 `endif
-		input HCLK,
-		input HRESETn,
+		input wire HCLK,
+		input wire HRESETn,
      
-		input [31: 0] HADDR,
-		input [31: 0] HWDATA,
-		input HWRITE,
-		input [1: 0] HTRANS,
-		input [2:0] HSIZE,
+		input wire [31: 0] HADDR,
+		input wire [31: 0] HWDATA,
+		input wire HWRITE,
+		input wire [1: 0] HTRANS,
+		input wire [2:0] HSIZE,
 
-		output HREADY,
-		output [31: 0] HRDATA,
+		output wire HREADY,
+		output wire [31: 0] HRDATA,
 
 		input wire [3: 0] fdi_S0,
 		output wire [3: 0] fdo_S0,
@@ -76,8 +76,8 @@ module AHBlite_sys_0(
         wire HSEL_S0, HSEL_S1, HSEL_S2, HSEL_S3, HSEL_S4, HSEL_SS0;
 
         //Outputs
-        wire    [31:0]   HRDATA_S0, HRDATA_S1, HRDATA_S2, HRDATA_S3, HRDATA_S4, HRDATA_SS0, HRDATA;
-        wire             HREADY_S0, HREADY_S1, HREADY_S2, HREADY_S3, HREADY_S4, HREADY_SS0, HREADY;
+        wire    [31:0]   HRDATA_S0, HRDATA_S1, HRDATA_S2, HRDATA_S3, HRDATA_S4, HRDATA_SS0;
+        wire             HREADY_S0, HREADY_S1, HREADY_S2, HREADY_S3, HREADY_S4, HREADY_SS0;
         wire  [1:0]   HRESP;
        // wire          IRQ;
         

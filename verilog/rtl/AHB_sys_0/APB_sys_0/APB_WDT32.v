@@ -26,26 +26,26 @@ module APB_WDT32 (
 	// Device ready
 
 	// IP Interface
-	output		IRQ,
+	output wire		IRQ,
 
 	// WDTMR register/fields
-	input [31:0] WDTMR,
+	input wire [31:0] WDTMR,
 
 
 	// WDLOAD register/fields
-	output [31:0] WDLOAD,
+	output reg [31:0] WDLOAD,
 
 
 	// WDOV register/fields
-	input [0:0] WDOV,
+	input wire [0:0] WDOV,
 
 
 	// WDOVCLR register/fields
-	output [0:0] WDOVCLR,
+	output reg [0:0] WDOVCLR,
 
 
 	// WDEN register/fields
-	output [0:0] WDEN
+	output reg [0:0] WDEN
 
 );
 	wire rd_enable;
@@ -54,16 +54,6 @@ module APB_WDT32 (
 	assign  wr_enable = PSEL & PWRITE & (PENABLE); 
 	assign  PREADY = 1'b1;
     
-
-    reg [31:0] WDLOAD;
-
-    reg [0:0] WDOVCLR;
-
-    reg [0:0] WDEN;
-
-    wire[31:0] WDTMR;
-    wire[0:0] WDOV;
-
 	// Register: WDLOAD
 	wire WDLOAD_select = wr_enable & (PADDR[19:2] == 18'h1);
 

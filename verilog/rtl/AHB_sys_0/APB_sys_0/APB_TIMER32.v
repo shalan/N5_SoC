@@ -26,30 +26,30 @@ module APB_TIMER32 (
 	// Device ready
 
 	// IP Interface
-	output		IRQ,
+	output wire		IRQ,
 
 	// TMR register/fields
-	input [31:0] TMR,
+	input wire [31:0] TMR,
 
 
 	// PRE register/fields
-	output [31:0] PRE,
+	output reg [31:0] PRE,
 
 
 	// TMRCMP register/fields
-	output [31:0] TMRCMP,
+	output reg [31:0] TMRCMP,
 
 
 	// TMROV register/fields
-	input [0:0] TMROV,
+	input wire [0:0] TMROV,
 
 
 	// TMROVCLR register/fields
-	output [0:0] TMROVCLR,
+	output reg [0:0] TMROVCLR,
 
 
 	// TMREN register/fields
-	output [0:0] TMREN
+	output reg [0:0] TMREN
 
 );
 	wire rd_enable;
@@ -58,18 +58,6 @@ module APB_TIMER32 (
 	assign  wr_enable = PSEL & PWRITE & (PENABLE); 
 	assign  PREADY = 1'b1;
     
-
-    reg [31:0] PRE;
-
-    reg [31:0] TMRCMP;
-
-    reg [0:0] TMROVCLR;
-
-    reg [0:0] TMREN;
-
-    wire[31:0] TMR;
-    wire[0:0] TMROV;
-
 	// Register: PRE
 	wire PRE_select = wr_enable & (PADDR[19:2] == 18'h1);
 

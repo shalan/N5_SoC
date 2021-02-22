@@ -21,7 +21,7 @@
     output wire [1:0]   HRESP,
 		// IP Interface
 	// db_reg register/fields
-	output [3:0] db_reg
+	  output reg [3:0] db_reg
 
 
 );
@@ -78,9 +78,6 @@
     assign  rd_enable = IOSEL & (~IOWRITE) & IOTRANS; 
     wire wr_enable = IOTRANS & IOWRITE & IOSEL;
     
-
-    reg [3:0] db_reg;
-
 
 	// Register: db_reg
     wire db_reg_select = wr_enable & (IOADDR[23:2] == 20'h0);

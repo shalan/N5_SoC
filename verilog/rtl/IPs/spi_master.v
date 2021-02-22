@@ -55,20 +55,20 @@ module spi_master
     CLK_DIVIDER_WIDTH=8,
     SAMPLE_PHASE=0
     )
-  (input clk,
-   input resetb,
-   input CPOL,
-   input CPHA,
-   input [CLK_DIVIDER_WIDTH-1:0] clk_divider,
+  (input wire clk,
+   input wire resetb,
+   input wire CPOL,
+   input wire CPHA,
+   input wire [CLK_DIVIDER_WIDTH-1:0] clk_divider,
 
-   input go,
-   input [(NUM_PORTS*DATA_WIDTH)-1:0] datai,
-   output [(NUM_PORTS*DATA_WIDTH)-1:0] datao,
+   input wire go,
+   input wire [(NUM_PORTS*DATA_WIDTH)-1:0] datai,
+   output wire [(NUM_PORTS*DATA_WIDTH)-1:0] datao,
    output reg busy,
    output reg done,
 
-   input [NUM_PORTS-1:0] dout,
-   output [NUM_PORTS-1:0] din,
+   input wire [NUM_PORTS-1:0] dout,
+   output wire [NUM_PORTS-1:0] din,
    output reg csb,
    output reg sclk
    );
@@ -192,12 +192,12 @@ module sri
   // This is a shift register that sends data out to the di lines of
   // spi slaves.
   #(parameter DATA_WIDTH=16)
-  (input clk,
-   input resetb,
-   input [DATA_WIDTH-1:0] datai,
-   input sample,
-   input shift,
-   output din
+  (input wire clk,
+   input wire resetb,
+   input wire [DATA_WIDTH-1:0] datai,
+   input wire sample,
+   input wire shift,
+   output wire din
    );
 
    reg [DATA_WIDTH-1:0] sr_reg;
@@ -224,10 +224,10 @@ module sro
   // This is a shift register that receives data on the dout lines
   // from spi slaves.
   #(parameter DATA_WIDTH=16)
-  (input clk,
-   input resetb,
-   input shift,
-   input dout,
+  (input wire clk,
+   input wire resetb,
+   input wire shift,
+   input wire dout,
    output reg [DATA_WIDTH-1:0] datao
    );
    reg                     dout_s;

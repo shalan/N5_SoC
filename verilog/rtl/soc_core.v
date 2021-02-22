@@ -7,8 +7,8 @@ module soc_core (
 	input VPWR,
 	input VGND,
 `endif
-	input HCLK, 
-	input HRESETn,
+	input wire HCLK, 
+	input wire HRESETn,
 	
 	input wire 			NMI,
 	input wire [7:0]	SYSTICKCLKDIV,

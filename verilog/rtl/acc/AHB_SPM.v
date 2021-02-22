@@ -1,6 +1,6 @@
 module TCMP(clk, rst, a, s);
-    input clk, rst;
-    input a;
+    input wire clk, rst;
+    input wire a;
     output reg s;
 
     reg z;
@@ -20,8 +20,8 @@ module TCMP(clk, rst, a, s);
 endmodule
 
 module CSADD(clk, rst, x, y, sum);
-    input clk, rst;
-    input x, y;
+    input wire clk, rst;
+    input wire x, y;
     output reg sum;
 
     reg sc;
@@ -51,10 +51,10 @@ endmodule
 
 module SPM(clk, rst, x, y, p);
     parameter size = 32;
-    input clk, rst;
-    input y;
-    input[size-1:0] x;
-    output p;
+    input wire clk, rst;
+    input wire y;
+    input wire [size-1:0] x;
+    output wire p; 
 
     wire[size-1:1] pp;
     wire[size-1:0] xy;

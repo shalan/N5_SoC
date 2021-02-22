@@ -27,19 +27,19 @@ module APB_PWM32 (
 
 	// IP Interface
 	// PRE register/fields
-	output [31:0] PRE,
+	output reg [31:0] PRE,
 
 
 	// TMRCMP1 register/fields
-	output [31:0] TMRCMP1,
+	output reg [31:0] TMRCMP1,
 
 
 	// TMRCMP2 register/fields
-	output [31:0] TMRCMP2,
+	output reg [31:0] TMRCMP2,
 
 
 	// TMREN register/fields
-	output [0:0] TMREN
+	output reg [0:0] TMREN
 
 );
 	wire rd_enable;
@@ -48,16 +48,6 @@ module APB_PWM32 (
 	assign  wr_enable = PSEL & PWRITE & (PENABLE); 
 	assign  PREADY = 1'b1;
     
-
-    reg [31:0] PRE;
-
-    reg [31:0] TMRCMP1;
-
-    reg [31:0] TMRCMP2;
-
-    reg [0:0] TMREN;
-
-
 	// Register: PRE
 	wire PRE_select = wr_enable & (PADDR[19:2] == 18'h4);
 

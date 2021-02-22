@@ -53,7 +53,7 @@ module apb_sys_0(
 	output wire [0: 0] pwm_S6,
 	output wire [0: 0] pwm_S7,
 
-    output [15:0] IRQ
+    output wire [15:0] IRQ
 );
     
     // APB Master Signals

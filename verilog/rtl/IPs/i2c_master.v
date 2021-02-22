@@ -48,25 +48,25 @@
 
 
 module i2c_master_bit_ctrl (
-    input             clk,      // system clock
-    input             rst,      // asynchronous active high reset
-    input             ena,      // core enable signal
+    input wire        clk,      // system clock
+    input wire        rst,      // asynchronous active high reset
+    input wire        ena,      // core enable signal
 
-    input      [15:0] clk_cnt,  // clock prescale value
+    input wire     [15:0] clk_cnt,  // clock prescale value
 
-    input      [ 3:0] cmd,      // command (from byte controller)
+    input wire     [ 3:0] cmd,      // command (from byte controller)
     output reg        cmd_ack,  // command complete acknowledge
     output reg        busy,     // i2c bus busy
     output reg        al,       // i2c bus arbitration lost
 
-    input             din,
+    input  wire       din,
     output reg        dout,
 
-    input             scl_i,    // i2c clock line input
-    output            scl_o,    // i2c clock line output
+    input wire        scl_i,    // i2c clock line input
+    output wire       scl_o,    // i2c clock line output
     output reg        scl_oen,  // i2c clock line output enable (active low)
-    input             sda_i,    // i2c data line input
-    output            sda_o,    // i2c data line output
+    input wire        sda_i,    // i2c data line input
+    output wire       sda_o,    // i2c data line output
     output reg        sda_oen   // i2c data line output enable (active low)
 );
 

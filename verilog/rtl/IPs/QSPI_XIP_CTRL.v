@@ -14,9 +14,9 @@ module QSPI_XIP_CTRL(
 	input VGND,
 `endif
     // AHB-Lite Slave Interface
-    input               HCLK,
-    input               HRESETn,
-    input               HSEL,
+    input wire          HCLK,
+    input wire          HRESETn,
+    input wire          HSEL,
     input wire [31:0]   HADDR,
     input wire [1:0]    HTRANS,
     //input wire [31:0]   HWDATA,
@@ -26,11 +26,11 @@ module QSPI_XIP_CTRL(
     output wire [31:0]  HRDATA,
 
     // External Interface to Quad I/O
-    output              sck,
-    output              ce_n,
-    input   wire[3:0]   din,
-    output      [3:0]   dout,
-    output  wire        douten     
+    output wire          sck,
+    output wire          ce_n,
+    input  wire[3:0]     din,
+    output wire[3:0]     dout,
+    output wire          douten     
 );
 
     // Cache wires/buses
@@ -155,7 +155,7 @@ module FLASH_READER #(parameter LINE_SIZE=128)(
     output  reg                     sck,
     output  reg                     ce_n,
     input   wire[3:0]               din,
-    output      [3:0]               dout,
+    output  wire[3:0]               dout,
     output  wire                    douten
 );
 

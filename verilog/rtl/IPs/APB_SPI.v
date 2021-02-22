@@ -22,7 +22,7 @@ module APB_SPI(
     input wire [31:0] PADDR,
     input wire PENABLE,
 
-    input PSEL,
+    input wire PSEL,
 
     output wire PREADY,
     output wire [31:0] PRDATA,
@@ -32,7 +32,7 @@ module APB_SPI(
     output wire SSn,
     output wire SCLK,
 
-    output IRQ
+    output wire IRQ
 
 );
 

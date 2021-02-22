@@ -122,8 +122,8 @@
 `define     SYS_CSRRCI      3'b111
 
 module RV32_DECOMP	(	
-				    	input   [15:0]  IRi,
-				    	output  [31:0]  IRo
+				    	input  wire [15:0]  IRi,
+				    	output wire [31:0]  IRo
 					);
 
 
@@ -463,7 +463,7 @@ endmodule
 `include "../rtl/ALU_HC.v"
 `else
 // Mirioring Unit for the Shifter
-module mirror (input [31:0] in, output reg [31:0] out);
+module mirror (input wire [31:0] in, output reg [31:0] out);
     integer i;
     always @ *
         for(i=0; i<32; i=i+1)
@@ -471,7 +471,7 @@ module mirror (input [31:0] in, output reg [31:0] out);
 endmodule
 
 // Shift Right Unit
-module shr(input [31:0] a, output [31:0] r, input [4:0] shamt, input ar);
+module shr(input wire [31:0] a, output wire [31:0] r, input wire [4:0] shamt, input wire ar);
 
     wire [31:0] r1, r2, r3, r4;
 
@@ -581,9 +581,9 @@ endmodule
 
 // Instruction decoder that generates the ALU operation
 module RV32_DEC(
-    input [31:0] INSTR,
-    output	reg  [3:0]	  alu_fn,
-    output alu_op2_src
+    input  wire [31:0] INSTR,
+    output reg  [3:0]  alu_fn,
+    output wire alu_op2_src
     
 );
     wire [2:0]  func3       =   INSTR[`IR_funct3];
@@ -648,13 +648,12 @@ endmodule
 
 // Conditional Branchig Unit. It checks whether the branch is taken or not
 module BRANCH (
-		input [2:0] 	cond,
-		input [31:0] 	R1, R2,
-		output 			taken
+		input wire [2:0] 	cond,
+		input wire [31:0] 	R1, R2,
+		output reg			taken
 );
 	wire 		zf, cf, vf, sf;
 	wire [31:0] add, op_b;
-	reg 		taken;
 
 	assign op_b         = (~R2);
     assign {cf, add}    = (R1 + op_b + 1'b1);
@@ -800,14 +799,14 @@ module NfiVe32_XU(
 endmodule
 
 module NfiVe32_RF (
-	input			HCLK,							// System clock
-	input			WR,
-	input [ 4:0]	RA,
-	input [ 4:0]	RB,
-	input [ 4:0]	RW,
-	input [31:0]	DW, 
-	output [31:0]	DA, 
-	output [31:0]	DB
+	input wire		HCLK,							// System clock
+	input wire		WR,
+	input wire [ 4:0]	RA,
+	input wire [ 4:0]	RB,
+	input wire [ 4:0]	RW,
+	input wire [31:0]	DW, 
+	output wire [31:0]	DA, 
+	output wire [31:0]	DB
 );
  	reg [31:0] RF [31:0];
 
@@ -832,8 +831,8 @@ endmodule
 
 
 module NfiVe32 (
-	input	HCLK,							// System clock
-	input	HRESETn,						// System Reset, active low
+	input wire	HCLK,							// System clock
+	input wire	HRESETn,						// System Reset, active low
 
 	// AHB-LITE MASTER PORT for Instructions
 	output wire [31:0]  HADDR,				// AHB transaction address
@@ -1212,8 +1211,8 @@ module NfiVe32_SYS (
 	input VPWR,
 	input VGND,
 `endif
-	input	HCLK,							// System clock
-	input	HRESETn,						// System Reset, active low
+	input wire	HCLK,							// System clock
+	input wire	HRESETn,						// System Reset, active low
 
 	// AHB-LITE MASTER PORT for Instructions
 	output wire [31:0]  HADDR,				// AHB transaction address
