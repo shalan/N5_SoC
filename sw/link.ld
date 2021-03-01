@@ -4,7 +4,7 @@ MEMORY
 {
     FLASH (x) :
         ORIGIN = 0x0
-        LENGTH = 8K
+        LENGTH = 1M
     SRAM (rwx) :
         ORIGIN = 0x20000000,
         LENGTH = 16K
