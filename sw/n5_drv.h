@@ -21,6 +21,11 @@ int spi_end(unsigned int );
 /* i2c */
 int i2c_init(unsigned int , unsigned int );
 int i2c_send(unsigned int , unsigned char , unsigned char );
+int i2c_start(unsigned int , unsigned char );
+int i2c_sendByte(unsigned char );
+int i2c_sendHWord(unsigned int );
+int i2c_readByte();
+int i2c_stop();
 
 /* PWM */
 int pwm_init(unsigned int, unsigned int, unsigned int, unsigned int);

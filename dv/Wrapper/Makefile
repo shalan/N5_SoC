@@ -1,18 +1,21 @@
+PDK_PATH ?= $(PDK_ROOT)/sky130A
+RTL_PATH ?= ../../verilog/rtl
+BEH_PATH ?= ../
+
 all: sim
 .PHONY: all
 
-test.hex: ../../sw/test.c ../../sw/crt0.S ../../sw/link.ld 
-	$(MAKE) -C ../../sw/ all
+test.hex: check_pdk ../../sw/test.c ../../sw/crt0.S ../../sw/link.ld 
+	SIM_SOC=0 $(MAKE) -C ../../sw/ all
 
-test.vvp: test.hex files.list
-	iverilog -o test.vvp -D TEST_FIL="../../sw/test.hex" -c files.list
+test.vvp: test.hex
+	iverilog -o test.vvp -I $(PDK_PATH) -I $(RTL_PATH) -I $(BEH_PATH) N5_Wrapper_TB.v
 
-test_fast.vvp: test.hex files_fast_sim.list
-	iverilog -o test_fast.vvp -D TEST_FIL="../../sw/test.hex" -c files_fast_sim.list
+test_fast.vvp: test.hex 
+	iverilog -o test_fast.vvp -DFAST -DSIM_WRAPPER -I $(PDK_PATH) -I $(RTL_PATH) -I $(BEH_PATH) N5_Wrapper_TB.v
 
-
-test_gl.vvp: test.hex files_gl.list
-	iverilog -o test_gl.vvp -D TEST_FIL="../../sw/test.hex" -c files_gl.list
+test_gl.vvp: test.hex
+	iverilog -o test_gl.vvp -DGL -DSIM_WRAPPER -I $(PDK_PATH) -I $(RTL_PATH) -I $(BEH_PATH) N5_Wrapper_TB.v
 
 sim: test.vvp 
 	./test.vvp
@@ -22,6 +25,11 @@ sim_fast: test_fast.vvp
 
 sim_gl: test_gl.vvp 
 	./test_gl.vvp
+
+check_pdk:
+ifndef PDK_ROOT
+	$(error PDK_ROOT is undefined, please export it before running make)
+endif
 
 clean:
 	rm *.vvp *.vcd

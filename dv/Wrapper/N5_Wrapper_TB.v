@@ -1,8 +1,13 @@
 `timescale 1ns/1ns
 
 `define   TEST_FILE   "../../sw/test.hex" 
-`define   SIM_TIME    600_000
+`define   SIM_TIME    15_000_000
 `define   SIM_LEVEL   0
+
+`include "n5_netlists.v"
+`include "sst26wf080b.v"
+`include "23LC512.v"
+`include "M24LC16B.v"
 
 module N5_Wrapper_TB;
 
@@ -99,16 +104,15 @@ module N5_Wrapper_TB;
     assign io_in[32] = scl_i_Sys0_SS0_S4;
     assign scl_o_Sys0_SS0_S4 = io_out[32];
     assign scl_oen_o_Sys0_SS0_S4 = io_oeb[32];
-    assign sda_i_Sys0_SS0_S4 = io_in[33];
+    assign io_in[33] = sda_i_Sys0_SS0_S4;
     assign sda_o_Sys0_SS0_S4 = io_out[33];
     assign sda_oen_o_Sys0_SS0_S4 = io_oeb[33];
 
     assign io_in[34] = scl_i_Sys0_SS0_S5;
     assign scl_o_Sys0_SS0_S5 = io_out[34];
     assign scl_oen_o_Sys0_SS0_S5 = io_oeb[34];
-    assign sda_i_Sys0_SS0_S5 = io_in[35];
+    assign io_in[35] = sda_i_Sys0_SS0_S5;
     assign sda_o_Sys0_SS0_S5 = io_out[35];
-    assign sda_oen_o_Sys0_SS0_S5 = io_oeb[35];
 
     assign pwm_Sys0_SS0_S6 = io_out[36];
     assign pwm_Sys0_SS0_S7 = io_out[37];
@@ -184,6 +188,27 @@ module N5_Wrapper_TB;
         .HOLD_N_SIO3(SPI_HOLD)
 	);
 
+    // I2C E2PROM connected to I2C0
+    wire    scl, sda;
+    delay   m0_scl (scl_oen_o_Sys0_SS0_S4 ? 1'bz : scl_o_Sys0_SS0_S4, scl),
+            m0_sda (sda_oen_o_Sys0_SS0_S4 ? 1'bz : sda_o_Sys0_SS0_S4, sda);
+
+    assign  scl_i_Sys0_SS0_S4 = scl;
+    assign  sda_i_Sys0_SS0_S4 = sda;
+    
+	pullup p1(scl); // pullup scl line
+	pullup p2(sda); // pullup sda line
+
+    M24LC16B I2C_E2PROM(
+        .A0(1'b0), 
+        .A1(1'b0), 
+        .A2(1'b0), 
+        .WP(1'b0), 
+        .SDA(sda), 
+        .SCL(scl), 
+        .RESET(~HRESETn)
+    );
+
     // Load the application into the flash memory
     initial begin
         #1  $readmemh(`TEST_FILE, flash.I0.memory);
@@ -237,4 +262,15 @@ module terminal #(parameter bit_time = 160) (input rx);
     end
 
 
+endmodule
+
+module delay (in, out);
+  input  in;
+  output out;
+
+  assign out = in;
+
+  specify
+    (in => out) = (600,600);
+  endspecify
 endmodule

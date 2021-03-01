@@ -4,12 +4,12 @@ MEMORY
 {
     FLASH (x) :
         ORIGIN = 0x0
-        LENGTH = 1M
+        LENGTH = 8K
     SRAM (rwx) :
         ORIGIN = 0x20000000,
         LENGTH = 16K
     stack (rw):
-        ORIGIN = 0x20000000 + 8K
+        ORIGIN = 0x20000000 + 16K
         LENGTH = 4K
 }
 

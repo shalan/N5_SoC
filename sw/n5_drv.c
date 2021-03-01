@@ -150,6 +150,61 @@ int i2c_init(unsigned int n, unsigned int pre){
     }
 }
 
+int i2c_start(unsigned int n, unsigned char control)
+{
+    if(n>1) return -1;
+    if(n==0) {
+        *(I2C0_TX) = control;
+        *(I2C0_CMD) = I2C_CMD_STA | I2C_CMD_WR;
+        while( ((*I2C0_STAT) & I2C_STAT_TIP) != 0 );
+
+        if( ((*I2C0_STAT) & I2C_STAT_RXACK)) {
+            *(I2C0_CMD) = I2C_CMD_STO;
+            return 0;
+        }
+        return 1;
+
+    } else {
+        *(I2C1_TX) = control;
+        *(I2C1_CMD) = I2C_CMD_STA | I2C_CMD_WR;
+        while( ((*I2C1_STAT) & I2C_STAT_TIP) != 0 );
+
+        if( ((*I2C1_STAT) & I2C_STAT_RXACK)) {
+            *(I2C1_CMD) = I2C_CMD_STO;
+            return 0;
+        }
+        return 1;
+    }
+}
+
+int i2c_sendByte(unsigned char b){
+        *(I2C0_TX) = b;
+        *(I2C0_CMD) = I2C_CMD_WR;
+        while( (*I2C0_STAT) & I2C_STAT_TIP );
+        if( ((*I2C0_STAT) & I2C_STAT_RXACK )){
+            *(I2C0_CMD) = I2C_CMD_STO;
+            return 0;
+        }  
+        return 1;
+}
+
+int i2c_sendHWord(unsigned int hw){
+        if(i2c_sendByte(hw>>8) == 0)
+            return 0;
+        return i2c_sendByte(hw&0xFF);
+}
+
+int i2c_readByte(){
+    *(I2C0_CMD) = I2C_CMD_RD;
+    while( ((*I2C0_STAT) & I2C_STAT_TIP) != 0 );
+    return *(I2C0_RX);
+}
+
+int i2c_stop(){
+    *(I2C0_CMD) = I2C_CMD_STO;
+}
+
+
 int i2c_send(unsigned int n, unsigned char saddr, unsigned char sdata){
     if(n>1) return -1;
     if(n==0) {
@@ -305,5 +360,56 @@ int tmr_read(unsigned int n){
         return *TMR0;
     else
         return *TMR1;
+    return 0;
+}
+
+/* Watch dog Timers */
+int wdt_init(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) {
+        *WDT0_OVCLR = 1;
+        *WDT0_OVCLR = 0;        
+    } else {
+        *WDT1_OVCLR = 1;
+        *WDT1_OVCLR = 0;          
+    }
+    return 0;
+}
+
+int wdt_enable(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        *WDT0_EN = 0x1;
+    else
+        *WDT1_EN = 0x1;
+    return 0;
+}
+
+int wdt_load(unsigned int n, unsigned int val) {
+    if(n>1) return -1;
+    if(n==0) {
+        *WDT0_LOAD = val;
+    } else {
+        *WDT1_LOAD = val;
+    }
+    return 0;
+}
+
+int wdt_read(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) {
+        return *WDT0_TMR;
+    } else {
+        return *WDT1_TMR;
+    }
+    return 0;
+}
+
+int wdt_disable(unsigned int n){
+    if(n>1) return -1;
+    if(n==0) 
+        *WDT0_EN = 0x0;
+    else
+        *WDT1_EN = 0x0;
     return 0;
 }
