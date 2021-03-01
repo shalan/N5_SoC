@@ -121,6 +121,12 @@
 `define     SYS_CSRRSI      3'b110
 `define     SYS_CSRRCI      3'b111
 
+// Start of the program counter
+`ifndef PROGRAM_COUNTER
+`define     PROGRAM_COUNTER      32'h0
+// `define     PROGRAM_COUNTER      32'h20002000
+`endif
+
 module RV32_DECOMP	(	
 				    	input  wire [15:0]  IRi,
 				    	output wire [31:0]  IRo
@@ -1114,7 +1120,7 @@ module NfiVe32 (
             PCI <= pci; 
     `SYNC_END
 
-    `SYNC_BEGIN(PC, 32'h0)
+    `SYNC_BEGIN(PC, `PROGRAM_COUNTER)
         if(C2 & instr_mret)
             PC <= CSR_EPC;
         else if(C2 & exception & !INEXCEPTION)
