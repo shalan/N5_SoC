@@ -19,29 +19,29 @@ module APB_I2C(
     input wire [31:0] PADDR,
     input wire PENABLE,
     
-    input PSEL,
+    input wire PSEL,
     
     //APB Outputs
     output wire PREADY,
     output wire [31:0] PRDATA,
 
-	output wire IRQ,
+	  output wire IRQ,
 
     // i2c Ports
     input 	wire scl_i,	    // SCL-line input
-	output 	wire scl_o,	    // SCL-line output (always 1'b0)
-	output 	wire scl_oen_o, // SCL-line output enable (active low)
-	input	wire sda_i,     // SDA-line input
-	output	wire sda_o,	    // SDA-line output (always 1'b0)
-	output	wire sda_oen_o // SDA-line output enable (active low)
+    output 	wire scl_o,	    // SCL-line output (always 1'b0)
+    output 	wire scl_oen_o, // SCL-line output enable (active low)
+    input	  wire sda_i,     // SDA-line input
+    output	wire sda_o,	    // SDA-line output (always 1'b0)
+    output	wire sda_oen_o  // SDA-line output enable (active low)
     
 );
 
   assign PREADY = 1'b1; //always ready
   
   wire[7:0] io_do;
-  wire io_we = PENABLE & PWRITE & PREADY & PSEL;
-  wire io_re = PENABLE & ~PWRITE & PREADY & PSEL;
+  wire io_we = PENABLE && PWRITE && PREADY && PSEL;
+  wire io_re = PENABLE && ~PWRITE && PREADY && PSEL;
 
   wire i2c_irq;
 
@@ -56,7 +56,7 @@ module APB_I2C(
     begin
       I2C_IM_REG <= 1'b0;
     end
-    else if(PENABLE & PWRITE & PREADY & PSEL & (PADDR[4:2] == 3'h7))
+    else if(PENABLE && PWRITE && PREADY && PSEL && (PADDR[4:2] == 3'h7))
       I2C_IM_REG <= PWDATA[0:0];
   end
 
