@@ -459,36 +459,34 @@ module i2c_master_byte_ctrl (
 	//
 	// inputs & outputs
 	//
-	input clk;     // master clock
-	input rst;     // asynchronous active high reset
-	input ena;     // core enable signal
+	input wire clk;     // master clock
+	input wire rst;     // asynchronous active high reset
+	input wire ena;     // core enable signal
 
-	input [15:0] clk_cnt; // 4x SCL
+	input wire [15:0] clk_cnt; // 4x SCL
 
 	// control inputs
-	input       start;
-	input       stop;
-	input       read;
-	input       write;
-	input       ack_in;
-	input [7:0] din;
+	input wire      start;
+	input wire      stop;
+	input wire      read;
+	input wire      write;
+	input wire      ack_in;
+	input wire [7:0] din;
 
 	// status outputs
-	output       cmd_ack;
-	reg cmd_ack;
-	output       ack_out;
-	reg ack_out;
-	output       i2c_busy;
-	output       i2c_al;
-	output [7:0] dout;
+	output reg   cmd_ack;
+	output reg   ack_out;
+	output wire      i2c_busy;
+	output wire      i2c_al;
+	output wire [7:0] dout;
 
 	// I2C signals
-	input  scl_i;
-	output scl_o;
-	output scl_oen;
-	input  sda_i;
-	output sda_o;
-	output sda_oen;
+	input  wire scl_i;
+	output wire scl_o;
+	output wire scl_oen;
+	input  wire sda_i;
+	output wire sda_o;
+	output wire sda_oen;
 
 
 	//
