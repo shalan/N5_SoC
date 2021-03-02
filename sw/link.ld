@@ -9,7 +9,7 @@ MEMORY
         ORIGIN = 0x20000000,
         LENGTH = 16K
     stack (rw):
-        ORIGIN = 0x20000000 + 16K
+        ORIGIN = 0x20000000 + 8K
         LENGTH = 4K
 }
 

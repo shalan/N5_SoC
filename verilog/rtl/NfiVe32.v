@@ -121,12 +121,6 @@
 `define     SYS_CSRRSI      3'b110
 `define     SYS_CSRRCI      3'b111
 
-// Start of the program counter
-`ifndef PROGRAM_COUNTER
-`define     PROGRAM_COUNTER      32'h0
-// `define     PROGRAM_COUNTER      32'h20002000
-`endif
-
 module RV32_DECOMP	(	
 				    	input  wire [15:0]  IRi,
 				    	output wire [31:0]  IRo
@@ -836,7 +830,9 @@ endmodule
 `define 	CYC_C3		2'h3
 
 
-module NfiVe32 (
+module NfiVe32 #(
+	parameter PC_START_ADDRESS = 32'h0
+)(
 	input wire	HCLK,							// System clock
 	input wire	HRESETn,						// System Reset, active low
 
@@ -994,7 +990,7 @@ module NfiVe32 (
                         32'hBAAAAAAD;
 
 	
-    assign HADDR        = ~RUN ? 32'h0 : C3 ? {PC[31:2],2'b0} : C0 ? ({PC[31:2],2'b0}+32'h4) : C2 ? alur : 32'd0;
+    assign HADDR        = ~RUN ? PC_START_ADDRESS : C3 ? {PC[31:2],2'b0} : C0 ? ({PC[31:2],2'b0}+32'h4) : C2 ? alur : 32'd0;
     assign HTRANS[0]    = 1'h0;
     assign HTRANS[1]    = ~RUN | C3 | (C0 & unaligned) | (C2 & (instr_load | instr_store));
     assign HWRITE       = C2 & instr_store;
@@ -1120,7 +1116,7 @@ module NfiVe32 (
             PCI <= pci; 
     `SYNC_END
 
-    `SYNC_BEGIN(PC, `PROGRAM_COUNTER)
+    `SYNC_BEGIN(PC, PC_START_ADDRESS)
         if(C2 & instr_mret)
             PC <= CSR_EPC;
         else if(C2 & exception & !INEXCEPTION)
@@ -1212,7 +1208,9 @@ endmodule
 	NfiVe Top Level Integration 
 	NfiVe CPU + PIC + SYSTICK 
 */
-module NfiVe32_SYS (
+module NfiVe32_SYS  #(
+	parameter PC_START_ADDRESS = 32'h0
+)(
 `ifdef USE_POWER_PINS
 	input VPWR,
 	input VGND,
@@ -1243,7 +1241,9 @@ module NfiVe32_SYS (
 	reg  [7:0]  clkdiv;
 	reg 		systickclk;
 
-	NfiVe32 N5(
+	NfiVe32 #(
+		.PC_START_ADDRESS(PC_START_ADDRESS)
+	) N5(
 		.HCLK(HCLK),
 		.HRESETn(HRESETn),
 
