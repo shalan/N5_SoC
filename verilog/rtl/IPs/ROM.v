@@ -10,15 +10,13 @@ module ROM # (
     localparam ADR_WIDTH = $clog2(MEM_WORDS);
 
     input  wire     CLK;
-    input  wire     EN;
     output reg  [31:0]  Do;
     input wire  [ADR_WIDTH-1:0]   A;
 
     reg [31:0] ROM[MEM_WORDS-1 : 0];
      
     always @(posedge CLK) 
-    if (EN) Do <= ROM[A];
-    else Do <= 32'b0;
+        Do <= ROM[A];
 
     `ifdef INIT_ROM
         initial begin
