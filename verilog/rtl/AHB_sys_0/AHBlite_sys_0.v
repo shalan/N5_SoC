@@ -2,7 +2,7 @@
 `timescale 1ns/1ns
 
 //`define DBG
-module AHBlite_sys_0(
+module AHBlite_sys_0 (
 `ifdef USE_POWER_PINS
 		input VPWR,
 		input VGND,
@@ -18,25 +18,30 @@ module AHBlite_sys_0(
 
 		output wire HREADY,
 		output wire [31: 0] HRDATA,
-
-		input wire [3: 0] fdi_S0,
+		// Flash Interface
+		input  wire [3: 0] fdi_S0,
 		output wire [3: 0] fdo_S0,
 		output wire [0: 0] fdoe_S0,
 		output wire [0: 0] fsclk_S0,
 		output wire [0: 0] fcen_S0,
+		// RAM Interface
 		input wire [31: 0] SRAMRDATA_S1,
 		output wire [3: 0] SRAMWEN_S1,
 		output wire [31: 0] SRAMWDATA_S1,
 		output wire [0: 0] SRAMCS0_S1,
-		//output wire [0: 0] SRAMCS1_S1,
-		//output wire [0: 0] SRAMCS2_S1,
-		//output wire [0: 0] SRAMCS3_S1,
 		output wire [11: 0] SRAMADDR_S1,
+		// GPIO Interface
 		input wire [15: 0] GPIOIN_S2,
 		output wire [15: 0] GPIOOUT_S2,
 		output wire [15: 0] GPIOPU_S2,
 		output wire [15: 0] GPIOPD_S2,
 		output wire [15: 0] GPIOOEN_S2,
+`ifdef USE_ROM
+		// ROM Interface
+		input wire [31:0] ROMRDATA, 
+		output wire ROMCS0,
+	    output wire [11:0] ROMADDR,  
+`endif
 		output wire [3:0] db_reg,
 		input wire [0: 0] RsRx_SS0_S0,
 		output wire [0: 0] RsTx_SS0_S0,
@@ -100,7 +105,6 @@ module AHBlite_sys_0(
 		.HREADY(HREADY),
 		.HWRITE(HWRITE),
 		.HTRANS(HTRANS),
-		//.HSIZE(HSIZE),
 		.HRDATA(HRDATA_S0),
 		.HREADYOUT(HREADY_S0),
 		.din(fdi_S0),
@@ -211,8 +215,27 @@ module AHBlite_sys_0(
 
 
 	// SLAVE 4
+`ifdef USE_ROM 
+	// Alternative option for booting
+	AHBROM S4 (
+			.HCLK(HCLK),     
+			.HRESETn(HRESETn),   
+			.HSEL(HSEL_S4),      
+			.HREADY(HREADY),   
+			.HTRANS(HTRANS),    
+			.HWRITE(HWRITE),    
+			.HADDR(HADDR),     
+			.HREADYOUT(HREADY_S4), 
+			.HRESP(HRESP),     
+			.HRDATA(HRDATA_S4),   
+			
+			.ROMRDATA(ROMRDATA), 
+			.ROMCS0(ROMCS0),
+			.ROMADDR(ROMADDR)  
+	);
+`else
 	assign HREADY_S4 = 1;
-
+`endif
 
 	//AHB Bus
 	AHBlite_BUS0 AHB(

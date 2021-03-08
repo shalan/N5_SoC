@@ -53,6 +53,11 @@
 `include "IPs/RAM_4Kx32.v"
 `include "acc/AHB_SPM.v"
 
+`ifdef USE_ROM
+    `include "IPs/AHBROM.v"
+    `include "IPs/ROM.v"
+`endif
+
 `ifdef GL
     `include "gl/DFFRAM_4K.v"
     `include "gl/DMC_32x16HC.v"
