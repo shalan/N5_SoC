@@ -1,20 +1,10 @@
-`define UNIT_DELAY #1
-`define FUNCTIONAL
-
-`ifdef GL
-    `define USE_POWER_PINS
-`endif
-
-`define NO_HC_REGF
+`include "defines.v"
 
 /* Need to export PDK_PATH and pass it to iverilog using -I */
-
 `include "libs.ref/sky130_fd_sc_hd/verilog/primitives.v"
 `include "libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v"
 
 `ifdef FAST
-    `define NO_HC_CACHE
-    `define NO_DFFRAM
     `include "DFFRAM_beh.v"
 `else 
     `ifndef GL
