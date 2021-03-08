@@ -1,6 +1,6 @@
 // ROM Controller
 module AHBROM #(
-    parameter AW = 13
+    parameter AW = 14
 )(
   input  wire          HCLK,     
   input  wire          HRESETn,   

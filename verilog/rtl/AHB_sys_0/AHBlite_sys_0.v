@@ -40,7 +40,7 @@ module AHBlite_sys_0 (
 		// ROM Interface
 		input wire [31:0] ROMRDATA, 
 		output wire ROMCS0,
-	    output wire [11:0] ROMADDR,  
+	    output wire [12:0] ROMADDR,  
 `endif
 		output wire [3:0] db_reg,
 		input wire [0: 0] RsRx_SS0_S0,
