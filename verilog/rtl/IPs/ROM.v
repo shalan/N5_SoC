@@ -7,7 +7,7 @@ module ROM # (
     A
 );
 
-    localparam ADR_WIDTH = $clog2(MEM_WORDS);
+    localparam ADR_WIDTH =  13;       // $clog2(MEM_WORDS);
 
     input  wire     CLK;
     output reg  [31:0]  Do;
