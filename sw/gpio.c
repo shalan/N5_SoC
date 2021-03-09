@@ -26,7 +26,7 @@ int main(){
     
 
     // GPIO Flashing LED
-    for (int i=0; i<50; i=i+1) {
+    for (int i=0; i<10; i=i+1) {
         gpio_write(0x0);
         DELAY(1000);
         gpio_write(0xFFFF);
